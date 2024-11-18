@@ -1,0 +1,28 @@
+{
+  "nproc": 32,
+  "img_dirs": [
+    "/workstation/fyy/sen1ship_new_dota_vhbg/vh/train/images/"
+  ],
+  "ann_dirs": [
+    "/workstation/fyy/sen1ship_new_dota_vhbg/vh/train/labelTxt/"
+  ],
+  "sizes": [
+    608
+  ],
+  "gaps": [
+    100
+  ],
+  "rates": [
+    2.0
+  ],
+  "img_rate_thr": 0.6,
+  "iof_thr": 0.7,
+  "no_padding": false,
+  "padding_value": [
+    104,
+    116,
+    124
+  ],
+  "save_dir": "/workstation/fyy/sen1ship_new_dota_vhbg_mm_608_single_2/train/",
+  "save_ext": ".jpg"
+}
