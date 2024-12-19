@@ -15,12 +15,12 @@ except ImportError:
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a detector')
-    parser.add_argument('config', help='train config file path')
+    parser.add_argument('config',default='/workstation/fyy/mm_runs/oriented_rcnn_r50_fpn_1x_sen1ship_le90/oriented_rcnn_r50_fpn_1x_sen1ship_le90.py', help='train config file path')
     parser.add_argument(
         '--shape',
         type=int,
         nargs='+',
-        default=[1024, 1024],
+        default=[608, 608],
         help='input image size')
     parser.add_argument(
         '--cfg-options',

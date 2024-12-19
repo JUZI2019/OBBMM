@@ -13,7 +13,7 @@ from .s2anet import S2ANet
 from .single_stage import RotatedSingleStageDetector
 from .two_stage import RotatedTwoStageDetector
 
-# from .oriented_rcnn_dual_branch import OrientedRCNNDualBranch
+from .oriented_rcnn_dual_branch import OrientedRCNNDualBranch
 
 __all__ = [
     'RotatedRetinaNet', 'RotatedFasterRCNN', 'OrientedRCNN', 'RoITransformer',
@@ -21,5 +21,5 @@ __all__ = [
     'RotatedBaseDetector', 'RotatedTwoStageDetector',
     'RotatedSingleStageDetector', 'RotatedFCOS',
 
-    # 'OrientedRCNNDualBranch'
+    'OrientedRCNNDualBranch'
 ]

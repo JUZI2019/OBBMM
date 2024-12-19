@@ -5,6 +5,8 @@ from .hrsc import HRSCDataset  # noqa: F401, F403
 from .pipelines import *  # noqa: F401, F403
 from .sar import SARDataset  # noqa: F401, F403
 from .sen1ship import Sen1shipDataset  # noqa: F401, F403
+from .sen1ship_dual_branch import Sen1shipDualBranchDataset
 
 
-__all__ = ['SARDataset', 'DOTADataset', 'build_dataset', 'HRSCDataset','Sen1shipDataset']
+__all__ = ['SARDataset', 'DOTADataset', 'build_dataset', 'HRSCDataset',
+           'Sen1shipDataset', 'Sen1shipDualBranchDataset']

@@ -131,7 +131,7 @@ def eval_rbbox_map(det_results,
                    dataset=None,
                    logger=None,
                    nproc=4,
-                   output_csv='/workstation/fyy/单类别/mm_runs/precision_recall'):
+                   output_csv='/workstation/fyy/mm_runs/precision_recall'):
     """Evaluate mAP of a rotated dataset.
 
     Args:
