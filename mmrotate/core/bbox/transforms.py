@@ -38,6 +38,16 @@ def bbox_flip(bboxes, img_shape, direction='horizontal'):
         flipped[:, 4] = norm_angle(np.pi - bboxes[:, 4], version)
     return flipped
 
+def bbox_mapping(bboxes,
+                 img_shape,
+                 scale_factor,
+                 flip,
+                 flip_direction='horizontal'):
+    """Map bboxes from the original image scale to testing scale."""
+    new_bboxes[:, :4] = bboxes[:, :4] * bboxes.new_tensor(scale_factor)
+    if flip:
+        new_bboxes = bbox_flip(new_bboxes, img_shape, flip_direction)
+    return new_bboxes
 
 def bbox_mapping_back(bboxes,
                       img_shape,

@@ -1,6 +1,7 @@
 # dataset settings
 dataset_type = 'Sen1shipDataset'
 data_root = '/workstation/fyy/multi_scale/sen1ship_dota_vhbg_608_ms_train/vh/'
+# data_root = '/workstation/fyy/NEW_SEN1SHIP_dataset/split/608_ms/'
 data_root_test = '/workstation/fyy/sen1ship_new_dota_vhbg_608_single_2/vh/'
 
 img_norm_cfg = dict(

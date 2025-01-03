@@ -12,7 +12,9 @@ from .rotated_retinanet import RotatedRetinaNet
 from .s2anet import S2ANet
 from .single_stage import RotatedSingleStageDetector
 from .two_stage import RotatedTwoStageDetector
-
+# add
+from .two_stage_dntr import RotatedTwoStageDetector_dntr
+from .cascade_rcnn_dntr import CascadeRCNN_dntr
 from .oriented_rcnn_dual_branch import OrientedRCNNDualBranch
 
 __all__ = [
@@ -21,5 +23,6 @@ __all__ = [
     'RotatedBaseDetector', 'RotatedTwoStageDetector',
     'RotatedSingleStageDetector', 'RotatedFCOS',
 
-    'OrientedRCNNDualBranch'
+    # add
+    'RotatedTwoStageDetector_dntr','CascadeRCNN_dntr','OrientedRCNNDualBranch'
 ]

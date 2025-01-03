@@ -1,5 +1,6 @@
 _base_ = [
-    '../_base_/datasets/ssdd.py', '../_base_/schedules/schedule_3x.py',
+    '../_base_/datasets/ssdd.py', 
+    # '../_base_/schedules/schedule_3x.py',
     '../_base_/default_runtime.py'
 ]
 
@@ -143,16 +144,17 @@ data = dict(
     val=dict(version=angle_version),
     test=dict(version=angle_version))
 
-optimizer = dict(lr=0.005)
+optimizer = dict(type='AdamW', lr=0.000125, weight_decay=0.0001)
+optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 
 # evaluation
-evaluation = dict(interval=72, metric='mAP')
+evaluation = dict(interval=4, metric='mAP')
 # learning policy
 lr_config = dict(
     policy='step',
     warmup='linear',
     warmup_iters=500,
     warmup_ratio=1.0 / 3,
-    step=[65, 71])
+    step=[48, 66])
 runner = dict(type='EpochBasedRunner', max_epochs=72)
-checkpoint_config = dict(interval=12)
+checkpoint_config = dict(interval=4)

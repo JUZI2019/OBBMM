@@ -476,7 +476,9 @@ class RotatedBBoxHead(BaseModule):
         Returns:
             Tensor: Regressed bboxes, the same shape as input rois.
         """
-        assert rois.size(1) == 4 or rois.size(1) == 5, repr(rois.shape)
+        # assert rois.size(1) == 4 or rois.size(1) == 5, repr(rois.shape)
+        assert rois.size(1) == 5 or rois.size(1) == 6, repr(rois.shape)
+
 
         if not self.reg_class_agnostic:
             label = label * 4
@@ -484,7 +486,15 @@ class RotatedBBoxHead(BaseModule):
             bbox_pred = torch.gather(bbox_pred, 1, inds)
         assert bbox_pred.size(1) == 5
 
-        if rois.size(1) == 4:
+        # if rois.size(1) == 4:
+        #     new_rois = self.bbox_coder.decode(
+        #         rois, bbox_pred, max_shape=img_meta['img_shape'])
+        # else:
+        #     bboxes = self.bbox_coder.decode(
+        #         rois[:, 1:], bbox_pred, max_shape=img_meta['img_shape'])
+        #     new_rois = torch.cat((rois[:, [0]], bboxes), dim=1)
+
+        if rois.size(1) == 5:
             new_rois = self.bbox_coder.decode(
                 rois, bbox_pred, max_shape=img_meta['img_shape'])
         else:
