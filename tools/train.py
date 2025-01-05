@@ -22,8 +22,8 @@ from mmrotate.utils import (collect_env, get_device, get_root_logger,
                             setup_multi_processes)
 
 
-os.environ["CUDA_VISIBLE_DEVICES"] = '0'
-# os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2,3,4,5,6"
+# os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+os.environ["CUDA_VISIBLE_DEVICES"] = "1,2,3,4,5,6"
 
 
 def parse_args():
@@ -43,7 +43,7 @@ def parse_args():
     group_gpus = parser.add_mutually_exclusive_group()
     group_gpus.add_argument(
         '--gpus',
-        # default=1,
+        default=6,
         type=int,
         help='number of gpus to use '
         '(only applicable to non-distributed training)')
@@ -53,7 +53,7 @@ def parse_args():
         nargs='+',
         help='ids of gpus to use '
         '(only applicable to non-distributed training)')
-    parser.add_argument('--seed', type=int, default=None, help='random seed')
+    parser.add_argument('--seed', type=int, default=46, help='random seed')
     parser.add_argument(
         '--diff-seed',
         action='store_true',

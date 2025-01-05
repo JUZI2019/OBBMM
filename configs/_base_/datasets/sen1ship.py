@@ -1,8 +1,8 @@
 # dataset settings
 dataset_type = 'Sen1shipDataset'
-data_root = '/workstation/fyy/multi_scale/sen1ship_dota_vhbg_608_ms_train/vh/'
+data_root = '/workstation1/fyy1/NEW_SEN1SHIP_dataset/split/608_1x_2x/vh/'
 # data_root = '/workstation/fyy/NEW_SEN1SHIP_dataset/split/608_ms/'
-data_root_test = '/workstation/fyy/sen1ship_new_dota_vhbg_608_single_2/vh/'
+# data_root_test = '/workstation/fyy/sen1ship_new_dota_vhbg_608_single_2/vh/'
 
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
@@ -31,20 +31,20 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=8,
-    workers_per_gpu=4,
+    samples_per_gpu=2,
+    workers_per_gpu=2,
     train=dict(
         type = dataset_type,
-        ann_file = data_root + 'train/labelTxt/',
-        img_prefix = data_root + 'train/images/',
+        ann_file = data_root + 'trainval/labelTxt/',
+        img_prefix = data_root + 'trainval/images/',
         pipeline = train_pipeline),
     val=dict(
         type = dataset_type,
-        ann_file = data_root_test + 'test/labelTxt/',
-        img_prefix = data_root_test + 'test/images/',
+        ann_file = data_root + 'test/labelTxt/',
+        img_prefix = data_root + 'test/images/',
         pipeline = test_pipeline),
     test=dict(
         type = dataset_type,
-        ann_file = data_root_test + 'test/labelTxt/',
-        img_prefix = data_root_test + 'test/images/',
+        ann_file = data_root + 'test/labelTxt/',
+        img_prefix = data_root + 'test/images/',
         pipeline = test_pipeline))
