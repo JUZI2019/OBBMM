@@ -24,7 +24,7 @@ optimizer = dict(type='Adam', lr=0.0003, weight_decay=0.0001)
 您需要创建一个名为 `mmrotate/core/optimizer` 的新文件夹；然后参考如下代码段在 `mmrotate/core/optimizer/my_optimizer.py` 文件中实现新的优化器:
 
 ```python
-from mmdet.core.optimizer.registry import OPTIMIZERS
+from mmdet_new.core.optimizer.registry import OPTIMIZERS
 from torch.optim import Optimizer
 
 
@@ -80,9 +80,9 @@ optimizer = dict(type='MyOptimizer', a=a_value, b=b_value, c=c_value)
 用户可以通过自定义优化器的构造函数去微调这些细粒度参数。
 
 ```python
-from mmcv.utils import build_from_cfg
+from mmcv_new.utils import build_from_cfg
 
-from mmcv.runner.optimizer import OPTIMIZER_BUILDERS, OPTIMIZERS
+from mmcv_new.runner.optimizer import OPTIMIZER_BUILDERS, OPTIMIZERS
 from mmrotate.utils import get_root_logger
 from .my_optimizer import MyOptimizer
 
@@ -193,7 +193,7 @@ workflow = [('train', 1)]
 这里我们举一个例子：在 mmrotate 中创建一个新的钩子并在训练中使用它。
 
 ```python
-from mmcv.runner import HOOKS, Hook
+from mmcv_new.runner import HOOKS, Hook
 
 
 @HOOKS.register_module()
@@ -296,12 +296,12 @@ MMCV runner 将使用 `checkpoint_config` 来初始化 [`CheckpointHook`](https:
 checkpoint_config = dict(interval=1)
 ```
 
-用户可以设置 `max_keep_ckpts` 来仅保存一小部分检查点（checkpoint）或者通过设置 `save_optimizer` 来决定是否保存优化器的状态字典 (state dict of optimizer)。更多使用参数的细节请参考 [这里](https://mmcv.readthedocs.io/en/latest/api.html#mmcv.runner.CheckpointHook)。
+用户可以设置 `max_keep_ckpts` 来仅保存一小部分检查点（checkpoint）或者通过设置 `save_optimizer` 来决定是否保存优化器的状态字典 (state dict of optimizer)。更多使用参数的细节请参考 [这里](https://mmcv_new.readthedocs.io/en/latest/api.html#mmcv_new.runner.CheckpointHook)。
 
 #### Log config
 
 `log_config` 包裹了许多日志钩 (logger hooks) 而且能去设置间隔 (intervals)。现在 MMCV 支持 `WandbLoggerHook` ， `MlflowLoggerHook` 和 `TensorboardLoggerHook`。
-详细的使用请参照 [文档](https://mmcv.readthedocs.io/en/latest/api.html#mmcv.runner.LoggerHook)。
+详细的使用请参照 [文档](https://mmcv_new.readthedocs.io/en/latest/api.html#mmcv_new.runner.LoggerHook)。
 
 ```python
 log_config = dict(

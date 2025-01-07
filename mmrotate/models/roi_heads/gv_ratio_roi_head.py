@@ -1,5 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmdet.core import bbox2roi
+from mmdet_new.core import bbox2roi
 
 from ..builder import ROTATED_HEADS
 from .rotate_standard_roi_head import RotatedStandardRoIHead

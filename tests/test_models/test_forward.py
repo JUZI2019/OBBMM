@@ -15,8 +15,8 @@ def _get_config_directory():
         repo_dpath = dirname(dirname(dirname(__file__)))
     except NameError:
         # For IPython development when this __file__ is not defined
-        import mmdet
-        repo_dpath = dirname(dirname(mmdet.__file__))
+        import mmdet_new
+        repo_dpath = dirname(dirname(mmdet_new.__file__))
     config_dpath = join(repo_dpath, 'configs')
     if not exists(config_dpath):
         raise Exception('Cannot find config path')
@@ -25,7 +25,7 @@ def _get_config_directory():
 
 def _get_config_module(fname):
     """Load a configuration as a python module."""
-    from mmcv import Config
+    from mmcv_new import Config
     config_dpath = _get_config_directory()
     config_fpath = join(config_dpath, fname)
     config_mod = Config.fromfile(config_fpath)
@@ -86,7 +86,7 @@ def test_single_stage_forward_gpu(cfg_file):
     model = _replace_r50_with_r18(model)
     model.backbone.init_cfg = None
 
-    from mmdet.models import build_detector
+    from mmdet_new.models import build_detector
     detector = build_detector(model)
 
     input_shape = (2, 3, 128, 128)
@@ -137,7 +137,7 @@ def test_two_stage_forward_gpu(cfg_file):
     model = _replace_r50_with_r18(model)
     model.backbone.init_cfg = None
 
-    from mmdet.models import build_detector
+    from mmdet_new.models import build_detector
     detector = build_detector(model)
     detector = detector.cuda()
 
@@ -181,7 +181,7 @@ def _demo_mm_inputs(input_shape=(1, 3, 300, 300),
         num_classes (int):
             number of different labels a box might have
     """
-    from mmdet.core import BitmapMasks
+    from mmdet_new.core import BitmapMasks
 
     (N, C, H, W) = input_shape
 

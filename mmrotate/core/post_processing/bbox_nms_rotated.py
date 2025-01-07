@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmcv.ops import nms_rotated
+from mmcv_new.ops import nms_rotated
 
 
 def multiclass_nms_rotated(multi_bboxes,

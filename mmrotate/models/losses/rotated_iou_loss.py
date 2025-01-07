@@ -3,12 +3,12 @@ import warnings
 
 import torch
 import torch.nn as nn
-from mmdet.models.losses.utils import weighted_loss
+from mmdet_new.models.losses.utils import weighted_loss
 
 from ..builder import ROTATED_LOSSES
 
 try:
-    from mmcv.ops import diff_iou_rotated_2d
+    from mmcv_new.ops import diff_iou_rotated_2d
 except:  # noqa: E722
     diff_iou_rotated_2d = None
 

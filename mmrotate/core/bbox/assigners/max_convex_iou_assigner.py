@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmcv.ops import convex_iou
-from mmdet.core.bbox.assigners.assign_result import AssignResult
-from mmdet.core.bbox.assigners.base_assigner import BaseAssigner
+from mmcv_new.ops import convex_iou
+from mmdet_new.core.bbox.assigners.assign_result import AssignResult
+from mmdet_new.core.bbox.assigners.base_assigner import BaseAssigner
 
 from ..builder import ROTATED_BBOX_ASSIGNERS
 

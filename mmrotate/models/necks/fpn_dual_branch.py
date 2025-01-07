@@ -1,8 +1,8 @@
 # # Copyright (c) OpenMMLab. All rights reserved.
 # import torch.nn as nn
 # import torch.nn.functional as F
-# from mmcv.cnn import ConvModule
-# from mmcv.runner import BaseModule, auto_fp16
+# from mmcv_new.cnn import ConvModule
+# from mmcv_new.runner import BaseModule, auto_fp16
 
 # from ..builder import ROTATED_NECKS
 
@@ -208,8 +208,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from mmcv.cnn import ConvModule
-from mmcv.runner import BaseModule, auto_fp16
+from mmcv_new.cnn import ConvModule
+from mmcv_new.runner import BaseModule, auto_fp16
 
 from ..builder import ROTATED_NECKS
 

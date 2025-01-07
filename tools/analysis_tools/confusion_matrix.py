@@ -1,15 +1,16 @@
+
 # Copyright (c) OpenMMLab. All rights reserved.
 import argparse
 import os
 
 import matplotlib.pyplot as plt
-import mmcv
+import mmcv_new
 import numpy as np
 import torch
 from matplotlib.ticker import MultipleLocator
-from mmcv import Config, DictAction
-from mmcv.ops import nms_rotated
-from mmdet.datasets import build_dataset
+from mmcv_new import Config, DictAction
+from mmcv_new.ops import nms_rotated
+from mmdet_new.datasets import build_dataset
 
 from mmrotate.core.bbox import rbbox_overlaps
 
@@ -79,7 +80,7 @@ def calculate_confusion_matrix(dataset,
     num_classes = len(dataset.CLASSES)
     confusion_matrix = np.zeros(shape=[num_classes + 1, num_classes + 1])
     assert len(dataset) == len(results)
-    prog_bar = mmcv.ProgressBar(len(results))
+    prog_bar = mmcv_new.ProgressBar(len(results))
     for idx, per_img_res in enumerate(results):
         if isinstance(per_img_res, tuple):
             res_bboxes, _ = per_img_res
@@ -237,7 +238,7 @@ def main():
     if args.cfg_options is not None:
         cfg.merge_from_dict(args.cfg_options)
 
-    results = mmcv.load(args.prediction_path)
+    results = mmcv_new.load(args.prediction_path)
     assert isinstance(results, list)
     if isinstance(results[0], list):
         pass

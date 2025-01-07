@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmdet.core.bbox.samplers.base_sampler import BaseSampler
-from mmdet.core.bbox.samplers.sampling_result import SamplingResult
+from mmdet_new.core.bbox.samplers.base_sampler import BaseSampler
+from mmdet_new.core.bbox.samplers.sampling_result import SamplingResult
 
 from ..builder import ROTATED_BBOX_SAMPLERS
 
@@ -25,7 +25,7 @@ class RRandomSampler(BaseSampler):
                  neg_pos_ub=-1,
                  add_gt_as_proposals=True,
                  **kwargs):
-        from mmdet.core.bbox import demodata
+        from mmdet_new.core.bbox import demodata
         super(RRandomSampler, self).__init__(num, pos_fraction, neg_pos_ub,
                                              add_gt_as_proposals)
         self.rng = demodata.ensure_rng(kwargs.get('rng', None))
@@ -97,9 +97,9 @@ class RRandomSampler(BaseSampler):
             :obj:`SamplingResult`: Sampling result.
 
         Example:
-            >>> from mmdet.core.bbox import RandomSampler
-            >>> from mmdet.core.bbox import AssignResult
-            >>> from mmdet.core.bbox.demodata import ensure_rng, random_boxes
+            >>> from mmdet_new.core.bbox import RandomSampler
+            >>> from mmdet_new.core.bbox import AssignResult
+            >>> from mmdet_new.core.bbox.demodata import ensure_rng, random_boxes
             >>> rng = ensure_rng(None)
             >>> assign_result = AssignResult.random(rng=rng)
             >>> bboxes = random_boxes(assign_result.num_preds, rng=rng)

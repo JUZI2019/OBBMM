@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmcv.parallel import MMDataParallel, MMDistributedDataParallel
+from mmcv_new.parallel import MMDataParallel, MMDistributedDataParallel
 
 dp_factory = {'cuda': MMDataParallel, 'cpu': MMDataParallel}
 
@@ -22,7 +22,7 @@ def build_dp(model, device='cuda', dim=0, *args, **kwargs):
         nn.Module: the model to be parallelized.
     """
     if device == 'npu':
-        from mmcv.device.npu import NPUDataParallel
+        from mmcv_new.device.npu import NPUDataParallel
         dp_factory['npu'] = NPUDataParallel
         torch.npu.set_device(kwargs['device_ids'][0])
         torch.npu.set_compile_mode(jit_compile=False)
@@ -52,7 +52,7 @@ def build_ddp(model, device='cuda', *args, **kwargs):
     """
     assert device in ['cuda', 'npu'], 'Only available for cuda or npu devices.'
     if device == 'npu':
-        from mmcv.device.npu import NPUDistributedDataParallel
+        from mmcv_new.device.npu import NPUDistributedDataParallel
         torch.npu.set_compile_mode(jit_compile=False)
         ddp_factory['npu'] = NPUDistributedDataParallel
         model = model.npu()

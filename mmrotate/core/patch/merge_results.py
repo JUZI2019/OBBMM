@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import numpy as np
 import torch
-from mmcv.ops import nms, nms_rotated
+from mmcv_new.ops import nms, nms_rotated
 
 
 def translate_bboxes(bboxes, offset):

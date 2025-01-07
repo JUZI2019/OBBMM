@@ -24,7 +24,7 @@ You need to create a new directory named `mmrotate/core/optimizer`.
 And then implement the new optimizer in a file, e.g., in `mmrotate/core/optimizer/my_optimizer.py`:
 
 ```python
-from mmdet.core.optimizer.registry import OPTIMIZERS
+from mmdet_new.core.optimizer.registry import OPTIMIZERS
 from torch.optim import Optimizer
 
 
@@ -81,9 +81,9 @@ Some models may have some parameter-specific settings for optimization, e.g. wei
 The users can do those fine-grained parameter tuning through customizing optimizer constructor.
 
 ```python
-from mmcv.utils import build_from_cfg
+from mmcv_new.utils import build_from_cfg
 
-from mmcv.runner.optimizer import OPTIMIZER_BUILDERS, OPTIMIZERS
+from mmcv_new.runner.optimizer import OPTIMIZER_BUILDERS, OPTIMIZERS
 from mmrotate.utils import get_root_logger
 from .my_optimizer import MyOptimizer
 
@@ -137,7 +137,7 @@ Tricks not implemented by the optimizer should be implemented through optimizer 
 
 ## Customize training schedules
 
-By default we use step learning rate with 1x schedule, this calls [`StepLRHook`](https://github.com/open-mmlab/mmcv/blob/f48241a65aebfe07db122e9db320c31b685dc674/mmcv/runner/hooks/lr_updater.py#L153) in MMCV.
+By default we use step learning rate with 1x schedule, this calls [`StepLRHook`](https://github.com/open-mmlab/mmcv/blob/f48241a65aebfe07db122e9db320c31b685dc674/mmcv/runner/hooks/lr_updater.py#L153) in mmcv_new.
 We support many other learning rate schedule [here](https://github.com/open-mmlab/mmcv/blob/master/mmcv/runner/hooks/lr_updater.py), such as `CosineAnnealing` and `Poly` schedule. Here are some examples
 
 - Poly schedule:
@@ -192,7 +192,7 @@ There are some occasions when the users might need to implement a new hook. MMRo
 Here we give an example of creating a new hook in mmrotate and using it in training.
 
 ```python
-from mmcv.runner import HOOKS, Hook
+from mmcv_new.runner import HOOKS, Hook
 
 
 @HOOKS.register_module()
@@ -296,12 +296,12 @@ The MMCV runner will use `checkpoint_config` to initialize [`CheckpointHook`](ht
 checkpoint_config = dict(interval=1)
 ```
 
-The users could set `max_keep_ckpts` to only save only small number of checkpoints or decide whether to store state dict of optimizer by `save_optimizer`. More details of the arguments are [here](https://mmcv.readthedocs.io/en/latest/api.html#mmcv.runner.CheckpointHook)
+The users could set `max_keep_ckpts` to only save only small number of checkpoints or decide whether to store state dict of optimizer by `save_optimizer`. More details of the arguments are [here](https://mmcv_new.readthedocs.io/en/latest/api.html#mmcv_new.runner.CheckpointHook)
 
 #### Log config
 
 The `log_config` wraps multiple logger hooks and enables to set intervals. Now MMCV supports `WandbLoggerHook`, `MlflowLoggerHook`, and `TensorboardLoggerHook`.
-The detail usages can be found in the [doc](https://mmcv.readthedocs.io/en/latest/api.html#mmcv.runner.LoggerHook).
+The detail usages can be found in the [doc](https://mmcv_new.readthedocs.io/en/latest/api.html#mmcv_new.runner.LoggerHook).
 
 ```python
 log_config = dict(

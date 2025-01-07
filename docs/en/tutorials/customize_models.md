@@ -164,7 +164,7 @@ Second, implement a new RoI Head if it is necessary. We plan to inherit the new 
 ```python
 import torch
 
-from mmdet.core import bbox2result, bbox2roi, build_assigner, build_sampler
+from mmdet_new.core import bbox2result, bbox2roi, build_assigner, build_sampler
 from mmrotate.models.builder import ROTATED_HEADS, build_head, build_roi_extractor
 from mmrotate.models.roi_heads.base_roi_head import BaseRoIHead
 from mmrotate.models.roi_heads.test_mixins import BBoxTestMixin, MaskTestMixin
@@ -267,7 +267,7 @@ import torch
 import torch.nn as nn
 
 from mmrotate.models.builder import ROTATED_LOSSES
-from mmdet.models.losses.utils import weighted_loss
+from mmdet_new.models.losses.utils import weighted_loss
 
 @weighted_loss
 def my_loss(pred, target):

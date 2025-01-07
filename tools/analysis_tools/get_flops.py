@@ -3,12 +3,12 @@ import argparse
 
 import numpy as np
 import torch
-from mmcv import Config, DictAction
+from mmcv_new import Config, DictAction
 
 from mmrotate.models import build_detector
 
 try:
-    from mmcv.cnn import get_model_complexity_info
+    from mmcv_new.cnn import get_model_complexity_info
 except ImportError:
     raise ImportError('Please upgrade mmcv to >0.6.2')
 

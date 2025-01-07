@@ -1,5 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-import mmcv
+import mmcv_new
 import numpy as np
 
 
@@ -38,8 +38,8 @@ def get_palette(palette, num_classes):
     elif palette == 'hrsc_classwise':
         from mmrotate.datasets import HRSCDataset
         dataset_palette = HRSCDataset.CLASSWISE_PALETTE
-    elif mmcv.is_str(palette):
-        dataset_palette = [mmcv.color_val(palette)[::-1]] * num_classes
+    elif mmcv_new.is_str(palette):
+        dataset_palette = [mmcv_new.color_val(palette)[::-1]] * num_classes
     else:
         raise TypeError(f'Invalid type for palette: {type(palette)}')
 

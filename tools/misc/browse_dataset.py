@@ -4,9 +4,9 @@ import os
 from collections import Sequence
 from pathlib import Path
 
-import mmcv
-from mmcv import Config, DictAction
-from mmdet.datasets.builder import build_dataset
+import mmcv_new
+from mmcv_new import Config, DictAction
+from mmdet_new.datasets.builder import build_dataset
 
 from mmrotate.core.visualization import imshow_det_rbboxes
 
@@ -81,7 +81,7 @@ def main():
 
     dataset = build_dataset(cfg.data.train)
 
-    progress_bar = mmcv.ProgressBar(len(dataset))
+    progress_bar = mmcv_new.ProgressBar(len(dataset))
 
     for item in dataset:
         filename = os.path.join(args.output_dir,

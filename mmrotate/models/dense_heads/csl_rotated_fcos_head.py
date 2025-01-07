@@ -2,9 +2,9 @@
 
 import torch
 import torch.nn as nn
-from mmcv.cnn import Scale
-from mmcv.runner import force_fp32
-from mmdet.core import reduce_mean
+from mmcv_new.cnn import Scale
+from mmcv_new.runner import force_fp32
+from mmdet_new.core import reduce_mean
 
 from mmrotate.core import build_bbox_coder, multiclass_nms_rotated
 from ..builder import ROTATED_HEADS
@@ -236,7 +236,7 @@ class CSLRFCOSHead(RotatedFCOSHead):
                 (height, width, 3).
             scale_factor (ndarray): Scale factor of the image arrange as
                 (w_scale, h_scale, w_scale, h_scale).
-            cfg (mmcv.Config): Test / postprocessing configuration,
+            cfg (mmcv_new.Config): Test / postprocessing configuration,
                 if None, test_cfg would be used.
             rescale (bool): If True, return boxes in original image space.
 

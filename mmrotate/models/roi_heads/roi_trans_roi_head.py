@@ -2,8 +2,8 @@
 from abc import ABCMeta
 
 import torch
-from mmcv.runner import BaseModule, ModuleList
-from mmdet.core import bbox2roi
+from mmcv_new.runner import BaseModule, ModuleList
+from mmdet_new.core import bbox2roi
 
 from mmrotate.core import (build_assigner, build_sampler, obb2xyxy,
                            rbbox2result, rbbox2roi)

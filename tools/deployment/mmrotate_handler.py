@@ -2,9 +2,9 @@
 import base64
 import os
 
-import mmcv
+import mmcv_new
 import torch
-from mmdet.apis import inference_detector, init_detector
+from mmdet_new.apis import inference_detector, init_detector
 from ts.torch_handler.base_handler import BaseHandler
 
 import mmrotate  # noqa: F401
@@ -52,7 +52,7 @@ class MMRotateHandler(BaseHandler):
             image = row.get('data') or row.get('body')
             if isinstance(image, str):
                 image = base64.b64decode(image)
-            image = mmcv.imfrombytes(image)
+            image = mmcv_new.imfrombytes(image)
             images.append(image)
 
         return images

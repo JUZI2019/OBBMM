@@ -2,12 +2,12 @@
 
 import cv2
 import matplotlib.pyplot as plt
-import mmcv
+import mmcv_new
 import numpy as np
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Polygon
-from mmdet.core.visualization import palette_val
-from mmdet.core.visualization.image import draw_labels, draw_masks
+from mmdet_new.core.visualization import palette_val
+from mmdet_new.core.visualization.image import draw_labels, draw_masks
 
 from mmrotate.core.visualization.palette import get_palette
 
@@ -133,7 +133,7 @@ def imshow_det_rbboxes(img,
     assert segms is not None or bboxes is not None, \
         'segms and bboxes should not be None at the same time.'
 
-    img = mmcv.imread(img).astype(np.uint8)
+    img = mmcv_new.imread(img).astype(np.uint8)
 
     if score_thr > 0:
         assert bboxes is not None and bboxes.shape[1] == 6
@@ -144,7 +144,7 @@ def imshow_det_rbboxes(img,
         if segms is not None:
             segms = segms[inds, ...]
 
-    img = mmcv.bgr2rgb(img)
+    img = mmcv_new.bgr2rgb(img)
     width, height = img.shape[1], img.shape[0]
     img = np.ascontiguousarray(img)
 
@@ -224,7 +224,7 @@ def imshow_det_rbboxes(img,
     img_rgba = buffer.reshape(height, width, 4)
     rgb, alpha = np.split(img_rgba, [3], axis=2)
     img = rgb.astype('uint8')
-    img = mmcv.rgb2bgr(img)
+    img = mmcv_new.rgb2bgr(img)
 
     if show:
         # We do not use cv2 for display because in some cases, opencv will
@@ -237,7 +237,7 @@ def imshow_det_rbboxes(img,
             plt.show(block=False)
             plt.pause(wait_time)
     if out_file is not None:
-        mmcv.imwrite(img, out_file)
+        mmcv_new.imwrite(img, out_file)
 
     plt.close()
 

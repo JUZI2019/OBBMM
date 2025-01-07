@@ -1,7 +1,7 @@
 # Copyright (c) SJTU. All rights reserved.
 import torch
 import torch.nn as nn
-from mmdet.models.losses.utils import weighted_loss
+from mmdet_new.models.losses.utils import weighted_loss
 
 from mmrotate.core import GaussianMixture, gt2gaussian
 from ..builder import ROTATED_LOSSES

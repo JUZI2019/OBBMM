@@ -3,17 +3,17 @@ import torch.nn as nn
 import time
 import numpy as np
 # from numba import jit
-from mmcv.runner import ModuleList
+from mmcv_new.runner import ModuleList
 # 注意：替换导入，使用 mmrotate 中的函数和装饰器
 from mmrotate.core import (rbbox2result, rbbox2roi, build_assigner,
                            build_sampler, multiclass_nms_rotated,
                             bbox_mapping, merge_aug_bboxes, merge_aug_masks)
-# from mmdet.core import (bbox2result, bbox2roi, bbox_mapping, build_assigner,
+# from mmdet_new.core import (bbox2result, bbox2roi, bbox_mapping, build_assigner,
 #                         build_sampler, merge_aug_bboxes, merge_aug_masks,
 #                         multiclass_nms)
 from ..builder import ROTATED_HEADS, build_head, build_roi_extractor
 
-from mmdet.models.roi_heads.base_roi_head import BaseRoIHead
+from mmdet_new.models.roi_heads.base_roi_head import BaseRoIHead
 
 from .test_mixins import RBoxTestMixin, MaskTestMixin
 from .oriented_standard_roi_head import OrientedStandardRoIHead

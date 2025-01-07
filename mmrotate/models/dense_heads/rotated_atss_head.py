@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmdet.core import images_to_levels, multi_apply, unmap
+from mmdet_new.core import images_to_levels, multi_apply, unmap
 
 from mmrotate.core import obb2hbb, rotated_anchor_inside_flags
 from ..builder import ROTATED_HEADS

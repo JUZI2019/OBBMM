@@ -13,7 +13,7 @@ python demo/huge_image_demo.py \
 
 from argparse import ArgumentParser
 
-from mmdet.apis import init_detector, show_result_pyplot
+from mmdet_new.apis import init_detector, show_result_pyplot
 
 from mmrotate.apis import inference_detector_by_patches
 

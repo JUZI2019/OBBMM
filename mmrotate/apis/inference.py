@@ -1,11 +1,11 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-import mmcv
+import mmcv_new
 import numpy as np
 import torch
-from mmcv.ops import RoIPool
-from mmcv.parallel import collate, scatter
-from mmdet.datasets import replace_ImageToTensor
-from mmdet.datasets.pipelines import Compose
+from mmcv_new.ops import RoIPool
+from mmcv_new.parallel import collate, scatter
+from mmdet_new.datasets import replace_ImageToTensor
+from mmdet_new.datasets.pipelines import Compose
 
 from mmrotate.core import get_multiscale_patch, merge_results, slide_window
 
@@ -44,7 +44,7 @@ def inference_detector_by_patches(model,
     test_pipeline = Compose(cfg.data.test.pipeline)
 
     if not isinstance(img, np.ndarray):
-        img = mmcv.imread(img)
+        img = mmcv_new.imread(img)
     height, width = img.shape[:2]
     sizes, steps = get_multiscale_patch(sizes, steps, ratios)
     windows = slide_window(width, height, sizes, steps)

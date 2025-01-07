@@ -2,9 +2,9 @@
 import copy
 import platform
 
-from mmcv.utils import build_from_cfg
-from mmdet.datasets import DATASETS, PIPELINES
-from mmdet.datasets.builder import _concat_dataset
+from mmcv_new.utils import build_from_cfg
+from mmdet_new.datasets import DATASETS, PIPELINES
+from mmdet_new.datasets.builder import _concat_dataset
 
 ROTATED_DATASETS = DATASETS
 ROTATED_PIPELINES = PIPELINES
@@ -20,7 +20,7 @@ if platform.system() != 'Windows':
 
 
 def build_dataset(cfg, default_args=None):
-    from mmdet.datasets.dataset_wrappers import (ClassBalancedDataset,
+    from mmdet_new.datasets.dataset_wrappers import (ClassBalancedDataset,
                                                  ConcatDataset,
                                                  MultiImageMixDataset,
                                                  RepeatDataset)

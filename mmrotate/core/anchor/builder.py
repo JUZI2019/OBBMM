@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmcv.utils import build_from_cfg
-from mmdet.core.anchor.builder import ANCHOR_GENERATORS
+from mmcv_new.utils import build_from_cfg
+from mmdet_new.core.anchor.builder import ANCHOR_GENERATORS
 
 ROTATED_ANCHOR_GENERATORS = ANCHOR_GENERATORS
 

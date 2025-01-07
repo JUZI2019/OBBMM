@@ -1,10 +1,10 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
 import torch.nn as nn
-from mmcv.cnn import ConvModule
-from mmcv.runner import force_fp32
-from mmdet.models.losses import accuracy
-from mmdet.models.utils import build_linear_layer
+from mmcv_new.cnn import ConvModule
+from mmcv_new.runner import force_fp32
+from mmdet_new.models.losses import accuracy
+from mmdet_new.models.utils import build_linear_layer
 
 from ...builder import ROTATED_HEADS
 from .rotated_bbox_head import RotatedBBoxHead

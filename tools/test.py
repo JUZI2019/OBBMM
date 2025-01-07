@@ -5,14 +5,14 @@ import os.path as osp
 import time
 import warnings
 
-import mmcv
+import mmcv_new
 import torch
-from mmcv import Config, DictAction
-from mmcv.cnn import fuse_conv_bn
-from mmcv.runner import (get_dist_info, init_dist, load_checkpoint,
+from mmcv_new import Config, DictAction
+from mmcv_new.cnn import fuse_conv_bn
+from mmcv_new.runner import (get_dist_info, init_dist, load_checkpoint,
                          wrap_fp16_model)
-from mmdet.apis import multi_gpu_test, single_gpu_test
-from mmdet.datasets import build_dataloader, replace_ImageToTensor
+from mmdet_new.apis import multi_gpu_test, single_gpu_test
+from mmdet_new.datasets import build_dataloader, replace_ImageToTensor
 
 from mmrotate.datasets import build_dataset
 from mmrotate.models import build_detector
@@ -200,7 +200,7 @@ def main():
     rank, _ = get_dist_info()
     # allows not to create
     if args.work_dir is not None and rank == 0:
-        mmcv.mkdir_or_exist(osp.abspath(args.work_dir))
+        mmcv_new.mkdir_or_exist(osp.abspath(args.work_dir))
         timestamp = time.strftime('%Y%m%d_%H%M%S', time.localtime())
         json_file = osp.join(args.work_dir, f'eval_{timestamp}.json')
 
@@ -248,7 +248,7 @@ def main():
     if rank == 0:
         if args.out:
             print(f'\nwriting results to {args.out}')
-            mmcv.dump(outputs, args.out)
+            mmcv_new.dump(outputs, args.out)
         kwargs = {} if args.eval_options is None else args.eval_options
         if args.format_only:
             dataset.format_results(outputs, **kwargs)
@@ -265,7 +265,7 @@ def main():
             print(metric)
             metric_dict = dict(config=args.config, metric=metric)
             if args.work_dir is not None and rank == 0:
-                mmcv.dump(metric_dict, json_file)
+                mmcv_new.dump(metric_dict, json_file)
 
 
 if __name__ == '__main__':

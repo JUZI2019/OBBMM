@@ -20,7 +20,7 @@ Compatible MMCV, MMDetection and MMRotate versions are shown as below. Please in
 |      0.1.1       | mmcv-full>=1.4.5, \<1.5.0 | mmdet >= 2.19.0, \<3.0.0 |
 |      0.1.0       | mmcv-full>=1.4.5, \<1.5.0 | mmdet >= 2.19.0, \<3.0.0 |
 
-- "No module named 'mmcv.ops'"; "No module named 'mmcv.\_ext'".
+- "No module named 'mmcv_new.ops'"; "No module named 'mmcv_new.\_ext'".
 
   1. Uninstall existing mmcv in the environment using `pip uninstall mmcv`.
   2. Install mmcv-full following the [installation instruction](install#best-practices).
@@ -31,7 +31,7 @@ Compatible MMCV, MMDetection and MMRotate versions are shown as below. Please in
 
   1. Check if your cuda runtime version (under `/usr/local/`), `nvcc --version` and `conda list cudatoolkit` version match.
   2. Run `python mmdet/utils/collect_env.py` to check whether PyTorch, torchvision, and MMCV are built for the correct GPU architecture.
-     You may need to set `TORCH_CUDA_ARCH_LIST` to reinstall MMCV.
+     You may need to set `TORCH_CUDA_ARCH_LIST` to reinstall mmcv_new.
      The GPU arch table could be found [here](https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html#gpu-feature-list),
      i.e. run `TORCH_CUDA_ARCH_LIST=7.0 pip install mmcv-full` to build MMCV for Volta GPUs.
      The compatibility issue could happen when using old GPUS, e.g., Tesla K80 (3.7) on colab.
@@ -42,7 +42,7 @@ Compatible MMCV, MMDetection and MMRotate versions are shown as below. Please in
 
   1. If those symbols are CUDA/C++ symbols (e.g., libcudart.so or GLIBCXX), check whether the CUDA/GCC runtimes are the same as those used for compiling mmcv,
      i.e. run `python mmdet/utils/collect_env.py` to see if `"MMCV Compiler"`/`"MMCV CUDA Compiler"` is the same as `"GCC"`/`"CUDA_HOME"`.
-  2. If those symbols are PyTorch symbols (e.g., symbols containing caffe, aten, and TH), check whether the PyTorch version is the same as that used for compiling mmcv.
+  2. If those symbols are PyTorch symbols (e.g., symbols containing caffe, aten, and TH), check whether the PyTorch version is the same as that used for compiling mmcv_new.
   3. Run `python mmdet/utils/collect_env.py` to check whether PyTorch, torchvision, and MMCV are built by and running on the same environment.
 
 - "setuptools.sandbox.UnpickleableException: DistutilsSetupError("each element of 'ext_modules' option must be an Extension instance or 2-tuple")"
@@ -66,7 +66,7 @@ Compatible MMCV, MMDetection and MMRotate versions are shown as below. Please in
   3. If Pytorch is correctly installed, check whether MMCV is correctly installed.
 
      ```shell
-     python -c 'import mmcv; import mmcv.ops'
+     python -c 'import mmcv; import mmcv_new.ops'
      ```
 
      If MMCV is correctly installed, then there will be no issue of the above two commands.

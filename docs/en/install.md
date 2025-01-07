@@ -81,7 +81,7 @@ You will see a new image `result.jpg` on your current folder, where rotated boun
 Option (b). If you install mmrotate with pip, open you python interpreter and copy&paste the following codes.
 
 ```python
-from mmdet.apis import init_detector, inference_detector
+from mmdet_new.apis import init_detector, inference_detector
 import mmrotate
 
 config_file = 'oriented_rcnn_r50_fpn_1x_dota_le90.py'
@@ -111,7 +111,7 @@ Installing CUDA runtime libraries is enough if you follow our best practices, be
 
 MMCV contains C++ and CUDA extensions, thus depending on PyTorch in a complex way. MIM solves such dependencies automatically and makes the installation easier. However, it is not a must.
 
-To install MMCV with pip instead of MIM, please follow [MMCV installation guides](https://mmcv.readthedocs.io/en/latest/get_started/installation.html). This requires manually specifying a find-url based on PyTorch version and its CUDA version.
+To install MMCV with pip instead of MIM, please follow [MMCV installation guides](https://mmcv_new.readthedocs.io/en/latest/get_started/installation.html). This requires manually specifying a find-url based on PyTorch version and its CUDA version.
 
 For example, the following command install mmcv-full built for PyTorch 1.9.x and CUDA 10.2.
 

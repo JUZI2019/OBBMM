@@ -2,7 +2,7 @@
 import copy
 import warnings
 
-from mmcv import ConfigDict
+from mmcv_new import ConfigDict
 
 
 def compat_cfg(cfg):

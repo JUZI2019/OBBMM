@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import warnings
 
-from mmdet.models.builder import MODELS
+from mmdet_new.models.builder import MODELS
 
 ROTATED_BACKBONES = MODELS
 ROTATED_LOSSES = MODELS

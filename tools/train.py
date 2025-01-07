@@ -6,14 +6,14 @@ import os.path as osp
 import time
 import warnings
 
-import mmcv
+import mmcv_new
 import torch
 import torch.distributed as dist
-from mmcv import Config, DictAction
-from mmcv.runner import get_dist_info, init_dist
-from mmcv.utils import get_git_hash
-from mmdet import __version__
-from mmdet.apis import init_random_seed, set_random_seed
+from mmcv_new import Config, DictAction
+from mmcv_new.runner import get_dist_info, init_dist
+from mmcv_new.utils import get_git_hash
+from mmdet_new import __version__
+from mmdet_new.apis import init_random_seed, set_random_seed
 
 from mmrotate.apis import train_detector
 from mmrotate.datasets import build_dataset
@@ -132,7 +132,7 @@ def main():
         cfg.gpu_ids = range(world_size)
 
     # create work_dir
-    mmcv.mkdir_or_exist(osp.abspath(cfg.work_dir))
+    mmcv_new.mkdir_or_exist(osp.abspath(cfg.work_dir))
     # dump config
     cfg.dump(osp.join(cfg.work_dir, osp.basename(args.config)))
     # init the logger before other steps

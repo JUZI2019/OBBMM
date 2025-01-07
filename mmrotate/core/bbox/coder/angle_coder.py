@@ -2,7 +2,7 @@
 import math
 
 import torch
-from mmdet.core.bbox.coder.base_bbox_coder import BaseBBoxCoder
+from mmdet_new.core.bbox.coder.base_bbox_coder import BaseBBoxCoder
 
 from ..builder import ROTATED_BBOX_CODERS
 

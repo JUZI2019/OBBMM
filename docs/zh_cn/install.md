@@ -81,7 +81,7 @@ python demo/image_demo.py demo/demo.jpg oriented_rcnn_r50_fpn_1x_dota_le90.py or
 选项（b）：如果使用 pip 安装 mmrotate，请打开 python 解释器并复制和粘贴以下代码。
 
 ```python
-from mmdet.apis import init_detector, inference_detector
+from mmdet_new.apis import init_detector, inference_detector
 import mmrotate
 
 config_file = 'oriented_rcnn_r50_fpn_1x_dota_le90.py'
@@ -111,7 +111,7 @@ inference_detector(model, 'demo/demo.jpg')
 
 MMCV 包含 C++ 和 CUDA 扩展，因此以复杂的方式依赖于 PyTorch。MIM 会自动解决此类依赖关系，并使安装更容易。然而，这不是必须的。
 
-要使用 pip 而不是 MIM 安装 MMCV，请遵循 [MMCV 安装指南](https://mmcv.readthedocs.io/en/latest/get_started/installation.html) 。 这需要根据 PyTorch 版本及其 CUDA 版本手动指定 find-url。
+要使用 pip 而不是 MIM 安装 MMCV，请遵循 [MMCV 安装指南](https://mmcv_new.readthedocs.io/en/latest/get_started/installation.html) 。 这需要根据 PyTorch 版本及其 CUDA 版本手动指定 find-url。
 
 例如, 以下命令安装了为 PyTorch 1.9.x 和 CUDA 10.2 构建的 mmcv-full。
 

@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import pytest
-from mmcv import ConfigDict
+from mmcv_new import ConfigDict
 
 from mmrotate.utils.compat_config import (compat_imgs_per_gpu,
                                           compat_loader_args,

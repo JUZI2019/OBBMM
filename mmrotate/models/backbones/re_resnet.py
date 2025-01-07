@@ -5,7 +5,7 @@ import warnings
 import e2cnn.nn as enn
 import torch.nn as nn
 import torch.utils.checkpoint as cp
-from mmcv.runner import BaseModule
+from mmcv_new.runner import BaseModule
 from torch.nn.modules.batchnorm import _BatchNorm
 
 from ..builder import ROTATED_BACKBONES

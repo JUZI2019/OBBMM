@@ -10,16 +10,16 @@ import zipfile
 from collections import defaultdict
 from functools import partial
 
-import mmcv
+import mmcv_new
 import numpy as np
 import torch
-from mmcv.ops import nms_rotated
-from mmdet.datasets.custom import CustomDataset
+from mmcv_new.ops import nms_rotated
+from mmdet_new.datasets.custom import CustomDataset
 
 from mmrotate.core import eval_rbbox_map, obb2poly_np, poly2obb_np
 from .builder import ROTATED_DATASETS
 
-from mmcv import print_log
+from mmcv_new import print_log
 from collections import OrderedDict
 
 @ROTATED_DATASETS.register_module()
@@ -337,11 +337,11 @@ class Sen1shipDataset(CustomDataset):
         merge_func = partial(_merge_func, CLASSES=self.CLASSES, iou_thr=0.1)
         if nproc <= 1:
             print('Executing on Single Processor')
-            merged_results = mmcv.track_iter_progress(
+            merged_results = mmcv_new.track_iter_progress(
                 (map(merge_func, collector.items()), len(collector)))
         else:
             print(f'Executing on {nproc} processors')
-            merged_results = mmcv.track_parallel_progress(
+            merged_results = mmcv_new.track_parallel_progress(
                 merge_func, list(collector.items()), nproc)
 
         # Return a zipped list of merged results

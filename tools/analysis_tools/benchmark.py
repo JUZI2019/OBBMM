@@ -5,11 +5,11 @@ import os
 import time
 
 import torch
-from mmcv import Config, DictAction
-from mmcv.cnn import fuse_conv_bn
-from mmcv.parallel import MMDistributedDataParallel
-from mmcv.runner import init_dist, load_checkpoint, wrap_fp16_model
-from mmdet.datasets import build_dataloader, replace_ImageToTensor
+from mmcv_new import Config, DictAction
+from mmcv_new.cnn import fuse_conv_bn
+from mmcv_new.parallel import MMDistributedDataParallel
+from mmcv_new.runner import init_dist, load_checkpoint, wrap_fp16_model
+from mmdet_new.datasets import build_dataloader, replace_ImageToTensor
 
 from mmrotate.datasets import build_dataset
 from mmrotate.models import build_detector

@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmcv.ops import points_in_polygons
-from mmdet.core.bbox.assigners.assign_result import AssignResult
-from mmdet.core.bbox.assigners.base_assigner import BaseAssigner
+from mmcv_new.ops import points_in_polygons
+from mmdet_new.core.bbox.assigners.assign_result import AssignResult
+from mmdet_new.core.bbox.assigners.base_assigner import BaseAssigner
 
 from ..builder import ROTATED_BBOX_ASSIGNERS
 from ..iou_calculators import build_iou_calculator

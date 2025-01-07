@@ -1,5 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmcv.ops import box_iou_rotated
+from mmcv_new.ops import box_iou_rotated
 
 from .builder import ROTATED_IOU_CALCULATORS
 import torch

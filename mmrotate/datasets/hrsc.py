@@ -3,10 +3,10 @@ import os.path as osp
 import xml.etree.ElementTree as ET
 from collections import OrderedDict
 
-import mmcv
+import mmcv_new
 import numpy as np
-from mmcv import print_log
-from mmdet.datasets import CustomDataset
+from mmcv_new import print_log
+from mmdet_new.datasets import CustomDataset
 from PIL import Image
 
 from mmrotate.core import eval_rbbox_map, obb2poly_np, poly2obb_np
@@ -89,7 +89,7 @@ class HRSCDataset(CustomDataset):
         """
 
         data_infos = []
-        img_ids = mmcv.list_from_file(ann_file)
+        img_ids = mmcv_new.list_from_file(ann_file)
         for img_id in img_ids:
             data_info = {}
 

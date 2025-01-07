@@ -1,9 +1,9 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 # Modified from jbwang1997: https://github.com/jbwang1997/OBBDetection
-import mmcv
+import mmcv_new
 import numpy as np
 import torch
-from mmdet.core.bbox.coder.base_bbox_coder import BaseBBoxCoder
+from mmdet_new.core.bbox.coder.base_bbox_coder import BaseBBoxCoder
 
 from ..builder import ROTATED_BBOX_CODERS
 from ..transforms import obb2poly, obb2xyxy, poly2obb
@@ -84,7 +84,7 @@ class MidpointOffsetCoder(BaseBBoxCoder):
         return decoded_bboxes
 
 
-@mmcv.jit(coderize=True)
+@mmcv_new.jit(coderize=True)
 def bbox2delta(proposals,
                gt,
                means=(0., 0., 0., 0., 0., 0.),
@@ -149,7 +149,7 @@ def bbox2delta(proposals,
     return deltas
 
 
-@mmcv.jit(coderize=True)
+@mmcv_new.jit(coderize=True)
 def delta2bbox(rois,
                deltas,
                means=(0., 0., 0., 0., 0., 0.),

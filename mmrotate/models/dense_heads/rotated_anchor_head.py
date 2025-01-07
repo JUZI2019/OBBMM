@@ -3,9 +3,9 @@ from inspect import signature
 
 import torch
 import torch.nn as nn
-from mmcv.runner import force_fp32
-from mmdet.core import images_to_levels, multi_apply, unmap
-from mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from mmcv_new.runner import force_fp32
+from mmdet_new.core import images_to_levels, multi_apply, unmap
+from mmdet_new.models.dense_heads.base_dense_head import BaseDenseHead
 
 from mmrotate.core import (aug_multiclass_nms_rotated, bbox_mapping_back,
                            build_assigner, build_bbox_coder,
@@ -528,7 +528,7 @@ class RotatedAnchorHead(BaseDenseHead):
                 level with shape (N, num_anchors * 5, H, W)
             img_metas (list[dict]): Meta information of each image, e.g.,
                 image size, scaling factor, etc.
-            cfg (mmcv.Config | None): Test / postprocessing configuration,
+            cfg (mmcv_new.Config | None): Test / postprocessing configuration,
                 if None, test_cfg would be used
             rescale (bool): If True, return boxes in original image space.
                 Default: False.
@@ -554,7 +554,7 @@ class RotatedAnchorHead(BaseDenseHead):
             >>>         ratios=[0.5, 1.0, 2.0],
             >>>         strides=[4,]))
             >>> img_metas = [{'img_shape': (32, 32, 3), 'scale_factor': 1}]
-            >>> cfg = mmcv.Config(dict(
+            >>> cfg = mmcv_new.Config(dict(
             >>>     score_thr=0.00,
             >>>     nms=dict(type='nms', iou_thr=1.0),
             >>>     max_per_img=10))
@@ -624,7 +624,7 @@ class RotatedAnchorHead(BaseDenseHead):
                 (height, width, 3).
             scale_factor (ndarray): Scale factor of the image arange as
                 (w_scale, h_scale, w_scale, h_scale).
-            cfg (mmcv.Config): Test / postprocessing configuration,
+            cfg (mmcv_new.Config): Test / postprocessing configuration,
                 if None, test_cfg would be used.
             rescale (bool): If True, return boxes in original image space.
                 Default: False.

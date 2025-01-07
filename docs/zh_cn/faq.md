@@ -20,7 +20,7 @@ MMRotate 和 MMCV, MMDet 版本兼容性如下所示，需要安装正确的版�
 |     0.1.1     | mmcv-full>=1.4.5, \<1.5.0 | mmdet >= 2.19.0, \<3.0.0 |
 |     0.1.0     | mmcv-full>=1.4.5, \<1.5.0 | mmdet >= 2.19.0, \<3.0.0 |
 
-- "No module named 'mmcv.ops'"; "No module named 'mmcv.\_ext'".
+- "No module named 'mmcv_new.ops'"; "No module named 'mmcv_new.\_ext'".
 
   原因是安装了 `mmcv` 而不是 `mmcv-full`。
 
@@ -67,7 +67,7 @@ MMRotate 和 MMCV, MMDet 版本兼容性如下所示，需要安装正确的版�
   3. 如果 `torch` 的安装是正确的，检查是否正确编译了 MMCV。
 
      ```shell
-     python -c 'import mmcv; import mmcv.ops'
+     python -c 'import mmcv; import mmcv_new.ops'
      ```
 
      如果 MMCV 被正确的安装了，那么上面的两条指令不会有问题。

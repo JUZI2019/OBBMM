@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmcv.utils import to_2tuple
-from mmdet.core.anchor import AnchorGenerator
+from mmcv_new.utils import to_2tuple
+from mmdet_new.core.anchor import AnchorGenerator
 
 from .builder import ROTATED_ANCHOR_GENERATORS
 

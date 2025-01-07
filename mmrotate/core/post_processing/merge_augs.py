@@ -4,8 +4,8 @@ import warnings
 
 import numpy as np
 import torch
-from mmcv import ConfigDict
-from mmcv.ops import nms
+from mmcv_new import ConfigDict
+from mmcv_new.ops import nms
 
 from ..bbox import bbox_mapping_back
 

@@ -1,17 +1,17 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch.nn as nn
 import torch.utils.checkpoint as cp
-from mmcv.cnn import (build_conv_layer, build_norm_layer, constant_init,
+from mmcv_new.cnn import (build_conv_layer, build_norm_layer, constant_init,
                       kaiming_init)
-from mmcv.runner import Sequential, load_checkpoint
+from mmcv_new.runner import Sequential, load_checkpoint
 from torch.nn.modules.batchnorm import _BatchNorm
 
-from mmdet.utils import get_root_logger
+from mmdet_new.utils import get_root_logger
 from ..builder import ROTATED_BACKBONES
 
-from mmdet.models.backbones.resnet import BasicBlock
-from mmdet.models.backbones.resnet import Bottleneck as _Bottleneck
-from mmdet.models.backbones.resnet import ResNet
+from mmdet_new.models.backbones.resnet import BasicBlock
+from mmdet_new.models.backbones.resnet import Bottleneck as _Bottleneck
+from mmdet_new.models.backbones.resnet import ResNet
 
 # from .resnet import BasicBlock
 # from .resnet import Bottleneck as _Bottleneck

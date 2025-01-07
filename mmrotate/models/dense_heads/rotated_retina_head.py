@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch.nn as nn
-from mmcv.cnn import ConvModule
-from mmcv.runner import force_fp32
+from mmcv_new.cnn import ConvModule
+from mmcv_new.runner import force_fp32
 
 from ..builder import ROTATED_HEADS
 from .rotated_anchor_head import RotatedAnchorHead

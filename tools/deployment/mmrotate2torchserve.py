@@ -3,7 +3,7 @@ from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-import mmcv
+import mmcv_new
 
 try:
     from model_archiver.model_packaging import package_model
@@ -42,9 +42,9 @@ def mmrotate2torchserve(
             If True, if there is an existing `{model_name}.mar`
             file under `output_folder` it will be overwritten.
     """
-    mmcv.mkdir_or_exist(output_folder)
+    mmcv_new.mkdir_or_exist(output_folder)
 
-    config = mmcv.Config.fromfile(config_file)
+    config = mmcv_new.Config.fromfile(config_file)
 
     with TemporaryDirectory() as tmpdir:
         config.dump(f'{tmpdir}/config.py')

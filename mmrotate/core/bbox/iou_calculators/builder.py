@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmcv.utils import build_from_cfg
-from mmdet.core.bbox.iou_calculators.builder import IOU_CALCULATORS
+from mmcv_new.utils import build_from_cfg
+from mmdet_new.core.bbox.iou_calculators.builder import IOU_CALCULATORS
 
 ROTATED_IOU_CALCULATORS = IOU_CALCULATORS
 

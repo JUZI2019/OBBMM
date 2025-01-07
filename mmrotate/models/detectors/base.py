@@ -1,8 +1,8 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-import mmcv
+import mmcv_new
 import numpy as np
 import torch
-from mmdet.models import BaseDetector
+from mmdet_new.models import BaseDetector
 
 from mmrotate.core import imshow_det_rbboxes
 from ..builder import ROTATED_DETECTORS
@@ -58,7 +58,7 @@ class RotatedBaseDetector(BaseDetector):
         Returns:
             img (torch.Tensor): Only if not `show` or `out_file`
         """
-        img = mmcv.imread(img)
+        img = mmcv_new.imread(img)
         img = img.copy()
         if isinstance(result, tuple):
             bbox_result, segm_result = result
@@ -75,7 +75,7 @@ class RotatedBaseDetector(BaseDetector):
         # draw segmentation masks
         segms = None
         if segm_result is not None and len(labels) > 0:  # non empty
-            segms = mmcv.concat_list(segm_result)
+            segms = mmcv_new.concat_list(segm_result)
             if isinstance(segms[0], torch.Tensor):
                 segms = torch.stack(segms, dim=0).detach().cpu().numpy()
             else:

@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
 
-from mmdet.utils import util_mixins
+from mmdet_new.utils import util_mixins
 
 
 class AssignResult(util_mixins.NiceRepr):
@@ -112,11 +112,11 @@ class AssignResult(util_mixins.NiceRepr):
             :obj:`AssignResult`: Randomly generated assign results.
 
         Example:
-            >>> from mmdet.core.bbox.assigners.assign_result import *  # NOQA
+            >>> from mmdet_new.core.bbox.assigners.assign_result import *  # NOQA
             >>> self = AssignResult.random()
             >>> print(self.info)
         """
-        from mmdet.core.bbox import demodata
+        from mmdet_new.core.bbox import demodata
         rng = demodata.ensure_rng(kwargs.get('rng', None))
 
         num_gts = kwargs.get('num_gts', None)

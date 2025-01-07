@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
 import torch.nn as nn
-from mmcv.ops import convex_giou
+from mmcv_new.ops import convex_giou
 from torch.autograd import Function
 from torch.autograd.function import once_differentiable
 

@@ -3,8 +3,8 @@ import copy
 
 import numpy as np
 import pytest
-from mmcv.utils import build_from_cfg
-from mmdet.datasets.builder import PIPELINES
+from mmcv_new.utils import build_from_cfg
+from mmdet_new.datasets.builder import PIPELINES
 
 from .utils import _check_fields
 

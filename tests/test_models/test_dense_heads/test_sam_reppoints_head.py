@@ -1,5 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-import mmcv
+import mmcv_new
 import pytest
 import torch
 
@@ -21,7 +21,7 @@ def test_sam_head_loss(reassign):
         'scale_factor': 1,
         'pad_shape': (s, s, 3)
     }]
-    train_cfg = mmcv.Config(
+    train_cfg = mmcv_new.Config(
         dict(
             init=dict(
                 assigner=dict(type='ConvexAssigner', scale=4, pos_num=1),

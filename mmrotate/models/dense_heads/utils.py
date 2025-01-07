@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmcv.ops import convex_iou
+from mmcv_new.ops import convex_iou
 
 
 def points_center_pts(RPoints, y_first=True):

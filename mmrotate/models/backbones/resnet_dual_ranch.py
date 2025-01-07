@@ -3,8 +3,8 @@
 
 # import torch.nn as nn
 # import torch.utils.checkpoint as cp
-# from mmcv.cnn import build_conv_layer, build_norm_layer, build_plugin_layer
-# from mmcv.runner import BaseModule
+# from mmcv_new.cnn import build_conv_layer, build_norm_layer, build_plugin_layer
+# from mmcv_new.runner import BaseModule
 # from torch.nn.modules.batchnorm import _BatchNorm
 
 # from ..builder import ROTATED_BACKBONES
@@ -344,7 +344,7 @@
 #             Default: None
 
 #     Example:
-#         >>> from mmdet.models import ResNet
+#         >>> from mmdet_new.models import ResNet
 #         >>> import torch
 #         >>> self = ResNet(depth=18)
 #         >>> self.eval()

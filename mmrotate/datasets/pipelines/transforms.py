@@ -2,11 +2,11 @@
 import copy
 
 import cv2
-import mmcv
+import mmcv_new
 import numpy as np
 import torch
-from mmcv.ops import box_iou_rotated
-from mmdet.datasets.pipelines.transforms import (Mosaic, RandomCrop,
+from mmcv_new.ops import box_iou_rotated
+from mmdet_new.datasets.pipelines.transforms import (Mosaic, RandomCrop,
                                                  RandomFlip, Resize)
 from numpy import random
 
@@ -140,7 +140,7 @@ class PolyRandomRotate(object):
             assert isinstance(angles_range, int), \
                 "mode 'range' expects angle_range to be an int."
         else:
-            assert mmcv.is_seq_of(angles_range, int) and len(angles_range), \
+            assert mmcv_new.is_seq_of(angles_range, int) and len(angles_range), \
                 "mode 'value' expects angle_range as a non-empty list of int."
         self.mode = mode
         self.angles_range = angles_range
@@ -387,7 +387,7 @@ class RRandomCrop(RandomCrop):
 @ROTATED_PIPELINES.register_module()
 class RMosaic(Mosaic):
     """Rotate Mosaic augmentation. Inherit from
-    `mmdet.datasets.pipelines.transforms.Mosaic`.
+    `mmdet_new.datasets.pipelines.transforms.Mosaic`.
 
     Given 4 images, mosaic transform combines them into
     one output image. The output image is composed of the parts from each sub-
@@ -499,7 +499,7 @@ class RMosaic(Mosaic):
             # keep_ratio resize
             scale_ratio_i = min(self.img_scale[0] / h_i,
                                 self.img_scale[1] / w_i)
-            img_i = mmcv.imresize(
+            img_i = mmcv_new.imresize(
                 img_i, (int(w_i * scale_ratio_i), int(h_i * scale_ratio_i)))
 
             # compute the combine parameters

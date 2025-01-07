@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
-from mmdet.core.bbox.assigners.assign_result import AssignResult
-from mmdet.core.bbox.assigners.base_assigner import BaseAssigner
+from mmdet_new.core.bbox.assigners.assign_result import AssignResult
+from mmdet_new.core.bbox.assigners.base_assigner import BaseAssigner
 
 from ..builder import ROTATED_BBOX_ASSIGNERS
 

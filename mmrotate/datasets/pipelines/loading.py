@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-import mmcv
+import mmcv_new
 import numpy as np
-from mmdet.datasets.pipelines import LoadImageFromFile
+from mmdet_new.datasets.pipelines import LoadImageFromFile
 
 from ..builder import ROTATED_PIPELINES
 
@@ -31,7 +31,7 @@ class LoadPatchFromImage(LoadImageFromFile):
 
         patch = img[y_start:y_stop, x_start:x_stop]
         if height > patch.shape[0] or width > patch.shape[1]:
-            patch = mmcv.impad(patch, shape=(height, width))
+            patch = mmcv_new.impad(patch, shape=(height, width))
 
         if self.to_float32:
             patch = patch.astype(np.float32)

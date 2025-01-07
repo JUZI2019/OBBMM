@@ -1,6 +1,6 @@
 # Copyright (c) OpenMMLab. All rights reserved.
-from mmcv.utils import build_from_cfg
-from mmdet.core.bbox.builder import BBOX_ASSIGNERS, BBOX_CODERS, BBOX_SAMPLERS
+from mmcv_new.utils import build_from_cfg
+from mmdet_new.core.bbox.builder import BBOX_ASSIGNERS, BBOX_CODERS, BBOX_SAMPLERS
 
 ROTATED_BBOX_ASSIGNERS = BBOX_ASSIGNERS
 ROTATED_BBOX_SAMPLERS = BBOX_SAMPLERS

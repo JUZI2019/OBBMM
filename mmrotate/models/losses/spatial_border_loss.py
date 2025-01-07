@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import torch
 import torch.nn as nn
-from mmcv.ops import points_in_polygons
+from mmcv_new.ops import points_in_polygons
 
 from ..builder import ROTATED_LOSSES
 

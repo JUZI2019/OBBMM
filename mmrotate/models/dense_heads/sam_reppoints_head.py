@@ -2,13 +2,13 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from mmcv.cnn import ConvModule
-from mmcv.ops import DeformConv2d, min_area_polygons
-from mmcv.runner import force_fp32
-from mmdet.core import images_to_levels, multi_apply, unmap
-from mmdet.core.anchor.point_generator import MlvlPointGenerator
-from mmdet.core.utils import select_single_mlvl
-from mmdet.models.dense_heads.base_dense_head import BaseDenseHead
+from mmcv_new.cnn import ConvModule
+from mmcv_new.ops import DeformConv2d, min_area_polygons
+from mmcv_new.runner import force_fp32
+from mmdet_new.core import images_to_levels, multi_apply, unmap
+from mmdet_new.core.anchor.point_generator import MlvlPointGenerator
+from mmdet_new.core.utils import select_single_mlvl
+from mmdet_new.models.dense_heads.base_dense_head import BaseDenseHead
 
 from mmrotate.core import (build_assigner, build_sampler,
                            multiclass_nms_rotated, obb2poly, poly2obb)
@@ -699,7 +699,7 @@ class SAMRepPointsHead(BaseDenseHead):
                 scale levels, each is a 18D-tensor, has shape
                 (batch_size, num_points * 2, H, W).
             img_metas (list[dict], Optional): Image meta info. Default None.
-            cfg (mmcv.Config, Optional): Test / postprocessing configuration,
+            cfg (mmcv_new.Config, Optional): Test / postprocessing configuration,
                 if None, test_cfg would be used.  Default None.
             rescale (bool): If True, return boxes in original image space.
                 Default False.
@@ -763,7 +763,7 @@ class SAMRepPointsHead(BaseDenseHead):
                 the priors of a single level in feature pyramid, has shape
                 (num_priors, 2).
             img_meta (dict): Image meta info.
-            cfg (mmcv.Config): Test / postprocessing configuration,
+            cfg (mmcv_new.Config): Test / postprocessing configuration,
                 if None, test_cfg would be used.
             rescale (bool): If True, return boxes in original image space.
                 Default: False.

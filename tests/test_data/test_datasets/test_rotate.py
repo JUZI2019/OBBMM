@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import numpy as np
 import pytest
-from mmdet.datasets import build_dataset
+from mmdet_new.datasets import build_dataset
 
 from mmrotate.datasets.sar import SARDataset
 

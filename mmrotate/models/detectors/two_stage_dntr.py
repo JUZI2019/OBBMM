@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 from threading import local
 import warnings
-from mmcv import Config
+from mmcv_new import Config
 import torch
 import torch.nn as nn
 from ..builder import ROTATED_DETECTORS, build_backbone, build_head, build_neck

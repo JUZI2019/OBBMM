@@ -3,9 +3,9 @@ from multiprocessing import get_context
 
 import numpy as np
 import torch
-from mmcv.ops import box_iou_rotated
-from mmcv.utils import print_log
-from mmdet.core import average_precision
+from mmcv_new.ops import box_iou_rotated
+from mmcv_new.utils import print_log
+from mmdet_new.core import average_precision
 from terminaltables import AsciiTable
 
 
@@ -156,7 +156,7 @@ def eval_rbbox_map(det_results,
             there are minor differences in metrics for different datasets, e.g.
             "voc07", "imagenet_det", etc. Default: None.
         logger (logging.Logger | str | None): The way to print the mAP
-            summary. See `mmcv.utils.print_log()` for details. Default: None.
+            summary. See `mmcv_new.utils.print_log()` for details. Default: None.
         nproc (int): Processes used for computing TP and FP.
             Default: 4.
 
@@ -278,7 +278,7 @@ def print_map_summary(mean_ap,
         dataset (list[str] | str | None): Dataset name or dataset classes.
         scale_ranges (list[tuple] | None): Range of scales to be evaluated.
         logger (logging.Logger | str | None): The way to print the mAP
-            summary. See `mmcv.utils.print_log()` for details. Default: None.
+            summary. See `mmcv_new.utils.print_log()` for details. Default: None.
     """
 
     if logger == 'silent':

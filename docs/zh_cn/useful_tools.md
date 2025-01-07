@@ -204,7 +204,7 @@ Params: 36.42 M
 
 1. FLOPs 与输入大小相关，但参数量与其无关。默认输入大小是(1, 3, 1024, 1024)。
 2. 一些算子例如 DCN 或自定义算子并未包含在 FLOPs 计算中，所以 S<sup>2</sup>A-Net 和基于 RepPoints 的模型的 FLOPs 计算是错误的。
-   详细信息请查看 [`mmcv.cnn.get_model_complexity_info()`](https://github.com/open-mmlab/mmcv/blob/master/mmcv/cnn/utils/flops_counter.py)。
+   详细信息请查看 [`mmcv_new.cnn.get_model_complexity_info()`](https://github.com/open-mmlab/mmcv/blob/master/mmcv/cnn/utils/flops_counter.py)。
 3. 两阶段检测器的 FLOPs 取决于候选的数量。
 
 ### 准备发布模型

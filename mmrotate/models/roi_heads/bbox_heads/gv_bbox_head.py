@@ -2,11 +2,11 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from mmcv.runner import BaseModule, auto_fp16, force_fp32
-from mmcv.utils import to_2tuple
-from mmdet.core import multi_apply
-from mmdet.models.losses import accuracy
-from mmdet.models.utils import build_linear_layer
+from mmcv_new.runner import BaseModule, auto_fp16, force_fp32
+from mmcv_new.utils import to_2tuple
+from mmdet_new.core import multi_apply
+from mmdet_new.models.losses import accuracy
+from mmdet_new.models.utils import build_linear_layer
 
 from mmrotate.core import (build_bbox_coder, hbb2obb, multiclass_nms_rotated,
                            obb2xyxy)

@@ -2,7 +2,7 @@
 from copy import deepcopy
 
 import torch
-from mmdet.models.losses.utils import weighted_loss
+from mmdet_new.models.losses.utils import weighted_loss
 from torch import nn
 
 from ..builder import ROTATED_LOSSES

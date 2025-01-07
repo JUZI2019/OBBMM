@@ -16,6 +16,8 @@ from .two_stage import RotatedTwoStageDetector
 from .two_stage_dntr import RotatedTwoStageDetector_dntr
 from .cascade_rcnn_dntr import CascadeRCNN_dntr
 from .oriented_rcnn_dual_branch import OrientedRCNNDualBranch
+from .dual_branch_mmroate_base import Dual_Branch_RotatedBaseDetector
+from .two_stage_dual_branch import Dual_Branch_RotatedTwoStageDetector
 
 __all__ = [
     'RotatedRetinaNet', 'RotatedFasterRCNN', 'OrientedRCNN', 'RoITransformer',
@@ -24,5 +26,6 @@ __all__ = [
     'RotatedSingleStageDetector', 'RotatedFCOS',
 
     # add
-    'RotatedTwoStageDetector_dntr','CascadeRCNN_dntr','OrientedRCNNDualBranch'
+    'RotatedTwoStageDetector_dntr','CascadeRCNN_dntr','OrientedRCNNDualBranch',
+    'Dual_Branch_RotatedBaseDetector','Dual_Branch_RotatedTwoStageDetector',
 ]

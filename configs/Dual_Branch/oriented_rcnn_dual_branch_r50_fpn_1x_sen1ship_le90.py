@@ -1,5 +1,5 @@
 _base_ = [
-    '../_base_/datasets/sen1ship.py', '../_base_/schedules/schedule_1x.py',
+    '../_base_/datasets/sen1ship_dual_branch.py', '../_base_/schedules/schedule_1x.py',
     '../_base_/default_runtime.py'
 ]
 runner = dict(type='EpochBasedRunner', max_epochs=50)

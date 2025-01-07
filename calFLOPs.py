@@ -1,8 +1,8 @@
 import torch
 import time
 from mmrotate.models import build_detector
-from mmcv import Config
-from mmcv.runner import load_checkpoint
+from mmcv_new import Config
+from mmcv_new.runner import load_checkpoint
 from thop import profile
 
 # 加载配置文件和模型

@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 # Modified from jbwang1997: https://github.com/jbwang1997/OBBDetection
 import torch
-from mmdet.core.bbox.coder.base_bbox_coder import BaseBBoxCoder
+from mmdet_new.core.bbox.coder.base_bbox_coder import BaseBBoxCoder
 
 from ..builder import ROTATED_BBOX_CODERS
 from ..transforms import obb2poly, poly2obb

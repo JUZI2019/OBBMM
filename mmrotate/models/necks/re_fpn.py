@@ -4,7 +4,7 @@ import warnings
 
 import e2cnn.nn as enn
 import torch.nn as nn
-from mmcv.runner import BaseModule, auto_fp16
+from mmcv_new.runner import BaseModule, auto_fp16
 
 from ..builder import ROTATED_NECKS
 from ..utils import (build_enn_feature, build_enn_norm_layer, ennConv,

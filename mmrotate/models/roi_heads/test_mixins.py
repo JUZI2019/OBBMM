@@ -7,14 +7,14 @@ import torch
 from mmrotate.core import (rbbox2result, rbbox2roi, build_assigner,
                            build_sampler, multiclass_nms_rotated,
                             bbox_mapping, merge_aug_bboxes, merge_aug_masks)
-# from mmdet.core import (bbox2result, bbox2roi, bbox_mapping, build_assigner,
+# from mmdet_new.core import (bbox2result, bbox2roi, bbox_mapping, build_assigner,
 #                         build_sampler, merge_aug_bboxes, merge_aug_masks,
 #                         multiclass_nms)
-from mmdet.core import (bbox2roi, bbox_mapping, merge_aug_bboxes,
+from mmdet_new.core import (bbox2roi, bbox_mapping, merge_aug_bboxes,
                         merge_aug_masks, multiclass_nms)
 
 if sys.version_info >= (3, 7):
-    from mmdet.utils.contextmanagers import completed
+    from mmdet_new.utils.contextmanagers import completed
 
 
 class RBoxTestMixin:

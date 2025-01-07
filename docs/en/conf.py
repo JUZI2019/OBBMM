@@ -42,7 +42,7 @@ extensions = [
     'sphinx_markdown_tables', 'myst_parser'
 ]
 
-autodoc_mock_imports = ['matplotlib', 'mmrotate.version', 'mmcv.ops']
+autodoc_mock_imports = ['matplotlib', 'mmrotate.version', 'mmcv_new.ops']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

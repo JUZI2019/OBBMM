@@ -4,11 +4,11 @@ import copy
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from mmcv.ops import batched_nms
-from mmcv.runner import force_fp32
-from mmdet.core import (anchor_inside_flags, images_to_levels, multi_apply,
+from mmcv_new.ops import batched_nms
+from mmcv_new.runner import force_fp32
+from mmdet_new.core import (anchor_inside_flags, images_to_levels, multi_apply,
                         unmap)
-from mmdet.models.dense_heads.anchor_head import AnchorHead
+from mmdet_new.models.dense_heads.anchor_head import AnchorHead
 
 from mmrotate.core import obb2xyxy
 from ..builder import ROTATED_HEADS
@@ -387,7 +387,7 @@ class RotatedRPNHead(AnchorHead):
                 level with shape (N, num_anchors * 5, H, W)
             img_metas (list[dict]): Meta information of each image, e.g.,
                 image size, scaling factor, etc.
-            cfg (mmcv.Config | None): Test / postprocessing configuration,
+            cfg (mmcv_new.Config | None): Test / postprocessing configuration,
                 if None, test_cfg would be used
             rescale (bool): If True, return boxes in original image space.
                 Default: False.
@@ -447,7 +447,7 @@ class RotatedRPNHead(AnchorHead):
                 (height, width, 3).
             scale_factor (ndarray): Scale factor of the image arrange as
                 (w_scale, h_scale, w_scale, h_scale).
-            cfg (mmcv.Config): Test / postprocessing configuration,
+            cfg (mmcv_new.Config): Test / postprocessing configuration,
                 if None, test_cfg would be used.
             rescale (bool): If True, return boxes in original image space.
                 Default: False.
