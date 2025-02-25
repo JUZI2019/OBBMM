@@ -31,8 +31,8 @@ test_pipeline = [
         ])
 ]
 data = dict(
-    samples_per_gpu=2,
-    workers_per_gpu=2,
+    samples_per_gpu=8,
+    workers_per_gpu=4,
     train=dict(
         type = dataset_type,
         ann_file = data_root + 'trainval/labelTxt/',

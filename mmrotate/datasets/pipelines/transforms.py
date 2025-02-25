@@ -352,6 +352,10 @@ class RRandomCrop(RandomCrop):
             img = img[crop_y1:crop_y2, crop_x1:crop_x2, ...]
             img_shape = img.shape
             results[key] = img
+            for bg_key in results.get('img_bg_fields', []):
+                if bg_key in results:
+                    results[bg_key] = results[bg_key][crop_y1:crop_y2,
+                                                      crop_x1:crop_x2, ...]
         results['img_shape'] = img_shape
 
         height, width, _ = img_shape

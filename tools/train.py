@@ -22,8 +22,8 @@ from mmrotate.utils import (collect_env, get_device, get_root_logger,
                             setup_multi_processes)
 
 
-# os.environ["CUDA_VISIBLE_DEVICES"] = '0'
-os.environ["CUDA_VISIBLE_DEVICES"] = "1,2,3,4,5,6"
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
+# os.environ["CUDA_VISIBLE_DEVICES"] = "1,2,3,4,5,6"
 
 
 def parse_args():

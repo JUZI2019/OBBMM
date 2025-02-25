@@ -1,6 +1,6 @@
 _base_ = [
-    '../_base_/datasets/sen1ship_dual_branch.py', 
-    '../_base_/schedules/schedule_1x.py',
+    '../_base_/datasets/sen2ship_dual_branch.py', 
+    '../_base_/schedules/schedule_6x.py',
     '../_base_/default_runtime.py'
 ]
 runner = dict(type='EpochBasedRunner', max_epochs=50)
@@ -90,9 +90,9 @@ model = dict(
             pos_weight=-1,
             debug=False),
         rpn_proposal=dict(
-            nms_pre=2000,
-            max_per_img=2000,
-            nms=dict(type='nms', iou_threshold=0.8),
+            nms_pre=3000,
+            max_per_img=3000,
+            nms=dict(type='nms', iou_threshold=0.7),
             min_bbox_size=0),
         rcnn=dict(
             assigner=dict(
@@ -113,9 +113,9 @@ model = dict(
             debug=False)),
     test_cfg=dict(
         rpn=dict(
-            nms_pre=2000,
-            max_per_img=2000,
-            nms=dict(type='nms', iou_threshold=0.8),
+            nms_pre=3000,
+            max_per_img=3000,
+            nms=dict(type='nms', iou_threshold=0.7),
             min_bbox_size=0),
         rcnn=dict(
             nms_pre=2000,
@@ -129,6 +129,7 @@ img_norm_cfg = dict(
 train_pipeline = [
     dict(type='LoadTwoBranchImageFromFile'),
     dict(type='LoadAnnotations', with_bbox=True),
+    # dict(type='RRandomCrop', crop_type='relative_range', crop_size=(0.8, 0.8), version=angle_version),
     dict(type='RResize', img_scale=(608, 608)),
     dict(
         type='RRandomFlip',
@@ -161,18 +162,31 @@ data = dict(
     val=dict(version=angle_version),
     test=dict(version=angle_version))
 
-optimizer = dict(lr=0.005)
-# checkpoint_config = dict(interval=1)
-# optimizer = dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001)
-# # learning policy
+
+# optimizer = dict(type='AdamW' ,lr=0.000125, weight_decay=0.0001)
+# optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # lr_config = dict(
 #     policy='step',
 #     warmup='linear',
-#     warmup_iters=5000,
-#     warmup_ratio=0.001,
-#     step=[32, 44])
-# checkpoint_config = dict(interval=1)
-# load_from = "/workstation1/fyy1/mm_runs/oriented_rcnn_dual_branch_r50_fpn_1x_sen1ship_le90/old_8.pth"
+#     warmup_iters=500,
+#     warmup_ratio=1.0 / 3,
+#     step=[48, 66])
+# runner = dict(type='EpochBasedRunner', max_epochs=72)
+# checkpoint_config = dict(interval=2)
+# evaluation = dict(interval=2, metric='mAP')
+
+# optimizer = dict(lr=0.005)
+checkpoint_config = dict(interval=1)
+optimizer = dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001)
+# learning policy
+lr_config = dict(
+    policy='step',
+    warmup='linear',
+    warmup_iters=5000,
+    warmup_ratio=0.001,
+    step=[32, 44])
+checkpoint_config = dict(interval=1)
+load_from = "/workstation1/fyy1/mm_runs/oriented_rcnn_dual_branch_r50_fpn_1x_sen2ship_le90_old/best_20.pth"
 
 # optimizer = dict(type='AdamW' ,lr=0.000125, weight_decay=0.0001)
 # evaluation = dict(interval=1, metric='mAP')

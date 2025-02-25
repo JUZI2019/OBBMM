@@ -2,14 +2,14 @@
 import mmcv_new
 import numpy as np
 import torch
-from .dual_branch_mmdet_base import BaseDetector
+from .dual_branch_mmdet_base import Dual_Branch_BaseDetector
 
 from mmrotate.core import imshow_det_rbboxes
 from ..builder import ROTATED_DETECTORS
 
 
 @ROTATED_DETECTORS.register_module()
-class Dual_Branch_RotatedBaseDetector(BaseDetector):
+class Dual_Branch_RotatedBaseDetector(Dual_Branch_BaseDetector):
     """Base class for rotated detectors."""
 
     def __init__(self, init_cfg=None):

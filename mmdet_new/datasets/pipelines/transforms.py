@@ -224,6 +224,15 @@ class Resize:
                     backend=self.backend)
                 # the w_scale and h_scale has minor difference
                 # a real fix should be done in the mmcv_new.imrescale in the future
+                for bg_key in results.get('img_bg_fields', []):
+                    if bg_key in results:
+                        img_bg, _ = mmcv_new.imrescale(
+                            results[bg_key],
+                            results['scale'],
+                            return_scale=True,
+                            interpolation=self.interpolation,
+                            backend=self.backend)
+                        results[bg_key] = img_bg
                 new_h, new_w = img.shape[:2]
                 h, w = results[key].shape[:2]
                 w_scale = new_w / w
@@ -235,6 +244,16 @@ class Resize:
                     return_scale=True,
                     interpolation=self.interpolation,
                     backend=self.backend)
+                for bg_key in results.get('img_bg_fields', []):
+                    if bg_key in results:
+                        img_bg, w_scale, h_scale = mmcv_new.imresize(
+                            results[bg_key],
+                            results['scale'],
+                            return_scale=True,
+                            interpolation=self.interpolation,
+                            backend=self.backend)
+                        results[bg_key] = img_bg
+                        
             results[key] = img
 
             scale_factor = np.array([w_scale, h_scale, w_scale, h_scale],
@@ -467,6 +486,10 @@ class RandomFlip:
             for key in results.get('img_fields', ['img']):
                 results[key] = mmcv_new.imflip(
                     results[key], direction=results['flip_direction'])
+                for bg_key in results.get('img_bg_fields', []):
+                    if bg_key in results:
+                        results[bg_key] = mmcv_new.imflip(
+                            results[bg_key], direction=results['flip_direction'])
             # flip bboxes
             for key in results.get('bbox_fields', []):
                 results[key] = self.bbox_flip(results[key],
@@ -633,6 +656,17 @@ class Pad:
                 padded_img = mmcv_new.impad_to_multiple(
                     results[key], self.size_divisor, pad_val=pad_val)
             results[key] = padded_img
+
+            for bg_key in results.get('img_bg_fields', []):
+                if bg_key in results:
+                    if self.size is not None:
+                        padded_img_bg = mmcv_new.impad(
+                            results[bg_key], shape=self.size, pad_val=pad_val)
+                    elif self.size_divisor is not None:
+                        padded_img_bg = mmcv_new.impad_to_multiple(
+                            results[bg_key], self.size_divisor, pad_val=pad_val)
+                    results[bg_key] = padded_img_bg                  
+
         results['pad_shape'] = padded_img.shape
         results['pad_fixed_size'] = self.size
         results['pad_size_divisor'] = self.size_divisor
@@ -706,6 +740,11 @@ class Normalize:
         for key in results.get('img_fields', ['img']):
             results[key] = mmcv_new.imnormalize(results[key], self.mean, self.std,
                                             self.to_rgb)
+            for bg_key in results.get('img_bg_fields', []):
+                if bg_key in results:
+                    results[bg_key] = mmcv_new.imnormalize(results[bg_key], self.mean, self.std,
+                                                    self.to_rgb)
+
         results['img_norm_cfg'] = dict(
             mean=self.mean, std=self.std, to_rgb=self.to_rgb)
         return results
@@ -812,6 +851,12 @@ class RandomCrop:
             img = img[crop_y1:crop_y2, crop_x1:crop_x2, ...]
             img_shape = img.shape
             results[key] = img
+            for bg_key in results.get('img_bg_fields', []):
+                if bg_key in results:
+                    results[bg_key] = results[bg_key][crop_y1:crop_y2,
+                                                      crop_x1:crop_x2, ...]
+
+
         results['img_shape'] = img_shape
 
         # crop bboxes accordingly and clip to the image boundary

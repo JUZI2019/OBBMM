@@ -17,7 +17,7 @@ except ImportError:
 class LoadTwoBranchImageFromFile:
     """Load Two Branch images from file.
 
-    Required keys are "img_branch_1_prefix","img_branch_2_prefix" and "img_info" (a dict that must contain the
+    Required keys are "img_prefix","img_branch_2_prefix" and "img_info" (a dict that must contain the
     key "filename"). Added or updated keys are "filename", "img", "img_shape",
     "ori_shape" (same as `img_shape`), "pad_shape" (same as `img_shape`),
     "scale_factor" (1.0) and "img_norm_cfg" (means=0 and stds=1).
@@ -58,23 +58,46 @@ class LoadTwoBranchImageFromFile:
             self.file_client = mmcv_new.FileClient(**self.file_client_args)
 
         if results['img_prefix'] is not None:
-            filename = osp.join(results['img_prefix'],
+            branch_1_filename = osp.join(results['img_prefix'],
                                 results['img_info']['filename'])
         else:
-            filename = results['img_info']['filename']
+            branch_1_filename = results['img_info']['filename']
 
-        img_bytes = self.file_client.get(filename)
-        img = mmcv_new.imfrombytes(
-            img_bytes, flag=self.color_type, channel_order=self.channel_order)
+        img1_bytes = self.file_client.get(branch_1_filename)
+        img1 = mmcv_new.imfrombytes(
+            img1_bytes, flag=self.color_type, channel_order=self.channel_order)
+        
+        if results['img_branch_2_prefix'] is not None:
+            bgi = results['img_info']['filename'].split('_')
+            branch_2_filename = osp.join(results['img_branch_2_prefix'],
+                               bgi[0]+'__'+bgi[3]+'__'+bgi[5]+'___'+bgi[8])
+        else:
+            branch_2_filename = results['img_info']['filename']
+
+        img2_bytes = self.file_client.get(branch_2_filename)
+        img2 = mmcv_new.imfrombytes(
+            img2_bytes, flag=self.color_type, channel_order=self.channel_order)
+        
+
         if self.to_float32:
-            img = img.astype(np.float32)
+            img1 = img1.astype(np.float32)
+            img2 = img2.astype(np.float32)
+        # import numpy as np
+        # import cv2
+        
+        # cv2.imwrite('./img.jpg', img1)
+        # cv2.imwrite('./img_bg.jpg', img2)
 
-        results['filename'] = filename
+        results['filename'] = branch_1_filename
         results['ori_filename'] = results['img_info']['filename']
-        results['img'] = img
-        results['img_shape'] = img.shape
-        results['ori_shape'] = img.shape
+        results['img'] = img1
+        results['img_shape'] = img1.shape
+        results['ori_shape'] = img1.shape
         results['img_fields'] = ['img']
+
+        results['img_bg'] = img2
+        results['img_bg_fields'] = ['img_bg']
+
         return results
 
     def __repr__(self):

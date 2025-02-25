@@ -61,7 +61,7 @@ class Dual_Branch_CustomDataset(Dataset):
                  pipeline,
                  classes=None,
                  data_root=None,
-                 img_branch_1_prefix='',
+                 img_prefix='',
                  img_branch_2_prefix='',
                  seg_prefix=None,
                  seg_suffix='.png',
@@ -72,7 +72,7 @@ class Dual_Branch_CustomDataset(Dataset):
         self.ann_file = ann_file
         self.data_root = data_root
         # self.img_prefix = img_prefix
-        self.img_branch_1_prefix = img_branch_1_prefix
+        self.img_prefix = img_prefix
         self.img_branch_2_prefix = img_branch_2_prefix
 
         self.seg_prefix = seg_prefix
@@ -90,8 +90,8 @@ class Dual_Branch_CustomDataset(Dataset):
             # if not (self.img_prefix is None or osp.isabs(self.img_prefix)):
             #     self.img_prefix = osp.join(self.data_root, self.img_prefix)
 
-            if not (self.img_branch_1_prefix is None or osp.isabs(self.img_branch_1_prefix)):
-                self.img_branch_1_prefix = osp.join(self.data_root, self.img_branch_1_prefix)
+            if not (self.img_prefix is None or osp.isabs(self.img_prefix)):
+                self.img_prefix = osp.join(self.data_root, self.img_prefix)
             if not (self.img_branch_2_prefix is None or osp.isabs(self.img_branch_2_prefix)):
                 self.img_branch_2_prefix = osp.join(self.data_root, self.img_branch_2_prefix)
 
@@ -179,7 +179,7 @@ class Dual_Branch_CustomDataset(Dataset):
     def pre_pipeline(self, results):
         """Prepare results dict for pipeline."""
         # results['img_prefix'] = self.img_prefix
-        results['img_branch_1_prefix'] = self.img_branch_1_prefix
+        results['img_prefix'] = self.img_prefix
         results['img_branch_2_prefix'] = self.img_branch_2_prefix
 
         results['seg_prefix'] = self.seg_prefix

@@ -1,14 +1,13 @@
 _base_ = [
-    # '../_base_/models/cascade_rcnn_r50_fpn.py',
-    '../_base_/datasets/sen1ship.py',
-    # '../_base_/schedules/schedule_6x.py',
+        '../_base_/datasets/sen2ship_dual_branch.py',
+    '../_base_/schedules/schedule_3x.py',
     '../_base_/default_runtime.py'
 ]
 # '../_base_/datasets/aitodv2_detection.py',
 angle_version = 'le90'
 # model settings
 model = dict(
-    type='CascadeRCNN',
+    type='OrientedRCNNDualBranch',
     backbone=dict(
         type='ResNet',
         depth=50,
@@ -157,9 +156,9 @@ model = dict(
             pos_weight=-1,
             debug=False),
         rpn_proposal=dict(
-            nms_pre=3000,
-            max_per_img=3000,
-            nms=dict(type='nms', iou_threshold=0.7),
+            nms_pre=2000,
+            max_per_img=2000,
+            nms=dict(type='nms', iou_threshold=0.8),
             min_bbox_size=0),
         rcnn=[            
             dict(
@@ -219,9 +218,9 @@ model = dict(
         ]),
     test_cfg=dict(
         rpn=dict(
-            nms_pre=3000,
-            max_per_img=3000,
-            nms=dict(type='nms', iou_threshold=0.7),
+            nms_pre=2000,
+            max_per_img=2000,
+            nms=dict(type='nms', iou_threshold=0.8),
             min_bbox_size=0),
         rcnn=dict(
             nms_pre=2000,
@@ -232,29 +231,37 @@ model = dict(
         # rcnn=dict(
         #     score_thr=0.05,
         #     nms=dict(iou_thr=0.5),
-        #     max_per_img=3000)
+        #     max_per_img=2000)
             ))
 
 
 evaluation = dict(interval=1, metric='mAP')
-optimizer = dict(type='AdamW' ,lr=0.000125, weight_decay=0.0001)
-optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
-lr_config = dict(
-    policy='step',
-    warmup='linear',
-    warmup_iters=500,
-    warmup_ratio=1.0 / 3,
-    step=[48, 66])
-runner = dict(type='EpochBasedRunner', max_epochs=72)
-checkpoint_config = dict(interval=1)
-# optimizer = dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001)
-# # learning policy
+# optimizer = dict(type='AdamW' ,lr=0.0001, weight_decay=0.0001)
+# optimizer_config = dict(grad_clip=dict(max_norm=35, norm_type=2))
 # lr_config = dict(
 #     policy='step',
 #     warmup='linear',
-#     warmup_iters=5000,
-#     warmup_ratio=0.001,
-#     step=[32, 44])
+#     warmup_iters=2000,
+#     warmup_ratio=1.0 / 3,
+#     step=[48, 66])
+# runner = dict(type='EpochBasedRunner', max_epochs=72)
+checkpoint_config = dict(interval=1)
+optimizer = dict(type='SGD', lr=0.0001, momentum=0.9, weight_decay=0.0001)
+# learning policy
+lr_config = dict(
+    policy='step',
+    warmup='linear',
+    warmup_iters=2000,
+    warmup_ratio=0.001,
+    step=[24, 32])
 # checkpoint_config = dict(interval=1)
 
-# load_from = "/workstation/fyy/mm_runs/sen1ship_TransRCNN_le90_old/best_44.pth"
+# evaluation
+load_from = "/workstation1/fyy1/mm_runs/oriented_rcnn_TransRCNN_dual_branch_r50_fpn_sen2ship_le90_old/epoch_9.pth"
+# load_from = None
+# load_from = "/mnt/data0/Garmin/nwd-rka/mmdet-nwdrka/work_dirs/pretrain/base_24.pth"
+# load_from = "/mnt/data0/Garmin/nwd-rka/mmdet-nwdrka/work_dirs/RS_cl_two_stage/e12_mAP251.pth"
+
+# resume_from = "/home/hoiliu/Desktop/DNTR/mmdet-dntr/work_dirs/aitod_DNTR_mask/latest.pth"
+# resume_from = None
+# resume_from = "/mnt/data0/Garmin/nwd-rka/mmdet-nwdrka/work_dirs/RS_cl_two_stage/e12_mAP251.pth"

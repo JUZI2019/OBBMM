@@ -41,6 +41,17 @@ class Compose:
             data = t(data)
             if data is None:
                 return None
+        # # 把两个分支的图像画出来看看
+        # import numpy as np
+        # import cv2
+        # img = data['img'].data.detach().permute(1, 2, 0).cpu().numpy().astype(np.uint8)
+        # img_bg = data['img_bg'].data.detach().permute(1, 2, 0).cpu().numpy().astype(np.uint8)
+        # cv2.imwrite('./img_T.jpg', img)
+        # cv2.imwrite('./img_bg_T.jpg', img_bg)
+        
+
+
+
         return data
 
     def __repr__(self):

@@ -240,6 +240,24 @@ class DefaultFormatBundle:
                 img = to_tensor(img).permute(2, 0, 1).contiguous()
             results['img'] = DC(
                 img, padding_value=self.pad_val['img'], stack=True)
+            
+        if 'img_bg' in results:
+            img_bg = results['img_bg']
+            if self.img_to_float is True and img_bg.dtype == np.uint8:
+                img_bg = img_bg.astype(np.float32)
+            # # add default meta keys
+            # results = self._add_default_meta_keys(results)
+            if len(img_bg.shape) < 3:
+                img_bg = np.expand_dims(img_bg, -1)
+
+            if not img_bg.flags.c_contiguous:
+                img_bg = np.ascontiguousarray(img_bg.transpose(2, 0, 1))
+                img_bg = to_tensor(img_bg)
+            else:
+                img_bg = to_tensor(img_bg).permute(2, 0, 1).contiguous()
+            results['img_bg'] = DC(
+                img_bg, padding_value=self.pad_val['img'], stack=True)
+            
         for key in ['proposals', 'gt_bboxes', 'gt_bboxes_ignore', 'gt_labels']:
             if key not in results:
                 continue

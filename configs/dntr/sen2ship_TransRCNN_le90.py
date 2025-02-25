@@ -1,6 +1,6 @@
 _base_ = [
     # '../_base_/models/cascade_rcnn_r50_fpn.py',
-    '../_base_/datasets/sen1ship.py',
+    '../_base_/datasets/sen2ship.py',
     # '../_base_/schedules/schedule_6x.py',
     '../_base_/default_runtime.py'
 ]
@@ -246,7 +246,8 @@ lr_config = dict(
     warmup_ratio=1.0 / 3,
     step=[48, 66])
 runner = dict(type='EpochBasedRunner', max_epochs=72)
-checkpoint_config = dict(interval=1)
+checkpoint_config = dict(interval=4)
+evaluation = dict(interval=4, metric='mAP')
 # optimizer = dict(type='SGD', lr=0.001, momentum=0.9, weight_decay=0.0001)
 # # learning policy
 # lr_config = dict(

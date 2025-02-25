@@ -60,7 +60,7 @@ class Dual_Branch_BaseDetector(BaseModule, metaclass=ABCMeta):
         assert isinstance(imgs, list)
         return [self.extract_feat(img) for img in imgs]
 
-    def forward_train(self, imgs, img_metas, **kwargs):
+    def forward_train(self, imgs, imgs_bg, img_metas, **kwargs):
         """
         Args:
             img (Tensor): of shape (N, C, H, W) encoding input images.
@@ -109,7 +109,7 @@ class Dual_Branch_BaseDetector(BaseModule, metaclass=ABCMeta):
         else:
             raise NotImplementedError
 
-    def forward_test(self, imgs, img_metas, **kwargs):
+    def forward_test(self, imgs, imgs_bg, img_metas, **kwargs):
         """
         Args:
             imgs (List[Tensor]): the outer list indicates test-time
@@ -144,17 +144,17 @@ class Dual_Branch_BaseDetector(BaseModule, metaclass=ABCMeta):
             # proposals.
             if 'proposals' in kwargs:
                 kwargs['proposals'] = kwargs['proposals'][0]
-            return self.simple_test(imgs[0], img_metas[0], **kwargs)
+            return self.simple_test(imgs[0], imgs_bg[0], img_metas[0], **kwargs)
         else:
             assert imgs[0].size(0) == 1, 'aug test does not support ' \
                                          'inference with batch size ' \
                                          f'{imgs[0].size(0)}'
             # TODO: support test augmentation for predefined proposals
             assert 'proposals' not in kwargs
-            return self.aug_test(imgs, img_metas, **kwargs)
+            return self.aug_test(imgs, imgs_bg, img_metas, **kwargs)
 
-    @auto_fp16(apply_to=('img', ))
-    def forward(self, img, img_metas, return_loss=True, **kwargs):
+    @auto_fp16(apply_to=('img', 'img_bg'))
+    def forward(self, img, img_bg, img_metas, return_loss=True, **kwargs):
         """Calls either :func:`forward_train` or :func:`forward_test` depending
         on whether ``return_loss`` is ``True``.
 
@@ -166,12 +166,12 @@ class Dual_Branch_BaseDetector(BaseModule, metaclass=ABCMeta):
         """
         if torch.onnx.is_in_onnx_export():
             assert len(img_metas) == 1
-            return self.onnx_export(img[0], img_metas[0])
+            return self.onnx_export(img[0], img_bg[0], img_metas[0])
 
         if return_loss:
-            return self.forward_train(img, img_metas, **kwargs)
+            return self.forward_train(img, img_bg, img_metas, **kwargs)
         else:
-            return self.forward_test(img, img_metas, **kwargs)
+            return self.forward_test(img, img_bg, img_metas, **kwargs)
 
     def _parse_losses(self, losses):
         """Parse the raw outputs (losses) of the network.

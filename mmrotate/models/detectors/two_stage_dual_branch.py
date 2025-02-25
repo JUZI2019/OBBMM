@@ -5,7 +5,14 @@ import torch
 
 from ..builder import ROTATED_DETECTORS, build_backbone, build_head, build_neck
 from .dual_branch_mmroate_base import Dual_Branch_RotatedBaseDetector
+from mmrotate.models.utils.conv import DWConv, Conv
+from mmcv_new.cnn import ConvModule
 
+import torch.nn as nn
+import matplotlib.pyplot as plt
+import os
+import cv2
+import numpy as np
 
 @ROTATED_DETECTORS.register_module()
 class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
@@ -51,6 +58,11 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
 
         self.train_cfg = train_cfg
         self.test_cfg = test_cfg
+        # self.cv1 = DWConv(512, 256, 1, 1)
+        self.cv1 = Conv(512, 256, 1, 1)
+        # self.cv1 =  nn.Sequential(nn.Conv2d(512, 256, kernel_size=1, stride=1),
+        #                 nn.BatchNorm2d(256),
+        #                 nn.ReLU(inplace=True))
 
     @property
     def with_rpn(self):
@@ -61,15 +73,134 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
     def with_roi_head(self):
         """bool: whether the detector has a RoI head"""
         return hasattr(self, 'roi_head') and self.roi_head is not None
+    
 
     def extract_feat(self, img):
+        # 原来的 
         """Directly extract features from the backbone+neck."""
         x = self.backbone(img)
         if self.with_neck:
             x = self.neck(x)
         return x
 
-    def forward_dummy(self, img):
+
+    def extract_concat_feat(self, img, img_bg):
+        # TODO:两个分支特征融合，目前这里先这么写
+        # 原来的 
+        # """Directly extract features from the backbone+neck."""
+        # x = self.backbone(img)
+        # if self.with_neck:
+        #     x = self.neck(x)
+        # return x
+
+
+        # 在FPN后concat，精度不行
+        x = self.backbone(img)
+        x_bg = self.backbone(img_bg)
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x[0].shape[1]):
+        #     temp = x[0][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x1P1.png'.format(idx)), temp)
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x_bg[0].shape[1]):
+        #     temp = x_bg[0][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x2P1.png'.format(idx)), temp)
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x[1].shape[1]):
+        #     temp = x[1][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x1P2.png'.format(idx)), temp)
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x_bg[1].shape[1]):
+        #     temp = x_bg[1][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x2P2.png'.format(idx)), temp)
+        if self.with_neck:
+            x = self.neck(x)
+            x_bg = self.neck(x_bg)
+
+        # i = img.data.cpu().numpy()
+        # i_bg = img_bg.cpu().numpy()
+        # plt.imsave('./img.jpg', i[0][0,:,:])
+        # plt.imsave('./img_bg.jpg', i_bg[0][0,:,:])
+
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x[0].shape[1]):
+        #     temp = x[0][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x1P1.png'.format(idx)), temp)
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x_bg[0].shape[1]):
+        #     temp = x_bg[0][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x2P1.png'.format(idx)), temp)
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x[1].shape[1]):
+        #     temp = x[1][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x1P2.png'.format(idx)), temp)
+        # # 把两个分支的图像画出来看看
+        # for idx in range(x_bg[1].shape[1]):
+        #     temp = x_bg[1][0,idx,:,:]
+        #     temp = temp.data.cpu().numpy()
+        #     plt.imsave(os.path.join('dilation', '{}-x2P2.png'.format(idx)), temp)
+        
+        # 使用中间变量来存储结果
+        x_modified = []
+        for i in range(len(x)):
+            x_i_modified = []
+            for batch_id in range(x[i].shape[0]):
+                x1 = x[i][batch_id,:,:,:].unsqueeze(0)
+                x2 = x_bg[i][batch_id,:,:,:].unsqueeze(0)
+                x_cat = torch.cat([x1, x2], dim=1)
+                # x_modified_batch = x_cat.squeeze(0)
+                x_modified_batch = self.cv1(x_cat).squeeze(0)
+
+                x_i_modified.append(x_modified_batch)
+            x_modified.append(torch.stack(x_i_modified))
+
+        # # # 画出来看看
+        # # for idx in range(x_modified[0].shape[1]):
+        # #     temp = x_modified[0][0,idx,:,:]
+        # #     temp = temp.data.cpu().numpy()
+        # #     plt.imsave(os.path.join('dilation', '{}-combineP1.png'.format(idx)), temp)
+        # # for idx in range(x_modified[1].shape[1]):
+        # #     temp = x_modified[1][0,idx,:,:]
+        # #     temp = temp.data.cpu().numpy()
+        # #     plt.imsave(os.path.join('dilation', '{}-combineP2.png'.format(idx)), temp)
+        return x_modified
+        
+    def extract_feats(self, imgs):
+        """Extract features from multiple images.
+
+        Args:
+            imgs (list[torch.Tensor]): A list of images. The images are
+                augmented from the same image but in different ways.
+
+        Returns:
+            list[torch.Tensor]: Features of different images
+        """
+        assert isinstance(imgs, list)
+        return [self.extract_feat(imgs[i]) for i in len(imgs)]
+    
+    
+    def extract_concat_feats(self, imgs, imgs_bg):
+        """Extract features from multiple images.
+
+        Args:
+            imgs (list[torch.Tensor]): A list of images. The images are
+                augmented from the same image but in different ways.
+
+        Returns:
+            list[torch.Tensor]: Features of different images
+        """
+        assert isinstance(imgs, list)
+        assert len(imgs)==len(imgs_bg)  # 确保两个分支图片数量一致
+        return [self.extract_concat_feat(imgs[i], imgs_bg[i]) for i in len(imgs)]
+    
+    def forward_dummy(self, img, img_bg):
         """Used for computing network flops.
 
         See `mmdetection/tools/analysis_tools/get_flops.py`
@@ -77,19 +208,22 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
         outs = ()
         # backbone
         x = self.extract_feat(img)
+        x_bg = self.extract_feat(img_bg)
+        x_cat = [self.cv1(torch.cat([x[i], x_bg[i]], dim=1)) for i in range(len(x))]
+        # x_cat = [ x[i]+ x_bg[i] for i in range(len(x))]
         # rpn
         if self.with_rpn:
             rpn_outs = self.rpn_head(x)
             outs = outs + (rpn_outs, )
         proposals = torch.randn(1000, 5).to(img.device)
         # roi_head
-        roi_outs = self.roi_head.forward_dummy(x, proposals)
+        roi_outs = self.roi_head.forward_dummy(x_cat, proposals)
         outs = outs + (roi_outs, )
         return outs
 
     def forward_train(self,
-                      img1,
-                      img2,
+                      img,
+                      img_bg,
                       img_metas,
                       gt_bboxes,
                       gt_labels,
@@ -125,14 +259,11 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
         Returns:
             dict[str, Tensor]: a dictionary of loss components
         """
-
-        # 两个分支提取特征
-        x1 = self.extract_feat(img1)
-        x2 = self.extract_feat(img2)
-
-        # TODO:两个分支特征融合，目前这里先这么写
-        x = x1
-
+        # 单分支特征
+        x = self.extract_feat(img)
+        x_bg = self.extract_feat(img_bg)
+        x_cat = [self.cv1(torch.cat([x[i], x_bg[i]], dim=1)) for i in range(len(x))]
+        # x_cat = [ x[i]+ x_bg[i] for i in range(len(x))]
         losses = dict()
 
         # RPN forward and loss
@@ -141,6 +272,7 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
                                               self.test_cfg.rpn)
             rpn_losses, proposal_list = self.rpn_head.forward_train(
                 x,
+                # x_cat,
                 img_metas,
                 gt_bboxes,
                 gt_labels=None,
@@ -151,7 +283,7 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
         else:
             proposal_list = proposals
 
-        roi_losses = self.roi_head.forward_train(x, img_metas, proposal_list,
+        roi_losses = self.roi_head.forward_train(x_cat, img_metas, proposal_list,
                                                  gt_bboxes, gt_labels,
                                                  gt_bboxes_ignore, gt_masks,
                                                  **kwargs)
@@ -161,12 +293,17 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
 
     async def async_simple_test(self,
                                 img,
+                                img_bg,
                                 img_meta,
                                 proposals=None,
                                 rescale=False):
         """Async test without augmentation."""
         assert self.with_bbox, 'Bbox head must be implemented.'
         x = self.extract_feat(img)
+        x_bg = self.extract_feat(img_bg)
+        x_cat = [self.cv1(torch.cat([x[i], x_bg[i]], dim=1)) for i in range(len(x))]
+        # x_cat = [ x[i]+ x_bg[i] for i in range(len(x))]
+        
 
         if proposals is None:
             proposal_list = await self.rpn_head.async_simple_test_rpn(
@@ -175,28 +312,36 @@ class Dual_Branch_RotatedTwoStageDetector(Dual_Branch_RotatedBaseDetector):
             proposal_list = proposals
 
         return await self.roi_head.async_simple_test(
-            x, proposal_list, img_meta, rescale=rescale)
+            x_cat, proposal_list, img_meta, rescale=rescale)
 
-    def simple_test(self, img, img_metas, proposals=None, rescale=False):
+    def simple_test(self, img, img_bg, img_metas, proposals=None, rescale=False):
         """Test without augmentation."""
 
         assert self.with_bbox, 'Bbox head must be implemented.'
         x = self.extract_feat(img)
+        x_bg = self.extract_feat(img_bg)
+        x_cat = [self.cv1(torch.cat([x[i], x_bg[i]], dim=1)) for i in range(len(x))]
+        # x_cat = [ x[i]+ x_bg[i] for i in range(len(x))]
+
         if proposals is None:
             proposal_list = self.rpn_head.simple_test_rpn(x, img_metas)
         else:
             proposal_list = proposals
 
         return self.roi_head.simple_test(
-            x, proposal_list, img_metas, rescale=rescale)
+            x_cat, proposal_list, img_metas, rescale=rescale)
 
-    def aug_test(self, imgs, img_metas, rescale=False):
+    def aug_test(self, imgs, imgs_bg, img_metas, rescale=False):
         """Test with augmentations.
 
         If rescale is False, then returned bboxes and masks will fit the scale
         of imgs[0].
         """
         x = self.extract_feats(imgs)
+        x_bg = self.extract_feats(imgs_bg)
+        x_cat = [[self.cv1(torch.cat([x[n][i], x_bg[n][i]], dim=1)) for i in range(len(x))] for n in range(len(imgs)) ]
+        # x_cat = [[x[n][i]+ x_bg[n][i] for i in range(len(x))] for n in range(len(imgs)) ]
+
         proposal_list = self.rpn_head.aug_test_rpn(x, img_metas)
         return self.roi_head.aug_test(
-            x, proposal_list, img_metas, rescale=rescale)
+            x_cat, proposal_list, img_metas, rescale=rescale)

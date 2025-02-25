@@ -409,31 +409,73 @@ class Sen1shipDualBranchDataset(Dual_Branch_CustomDataset):
                 - tmp_dir (str): the temporal directory created for saving \
                     json files when submission_dir is not specified.
         """
-        nproc = min(nproc, os.cpu_count())
-        assert isinstance(results, list), 'results must be a list'
-        assert len(results) == len(self), (
-            f'The length of results is not equal to '
-            f'the dataset len: {len(results)} != {len(self)}')
-        if submission_dir is None:
-            submission_dir = "./merge"  # 合并检测结果 
-            # submission_dir = tempfile.TemporaryDirectory()
+        # nproc = min(nproc, os.cpu_count())
+        # assert isinstance(results, list), 'results must be a list'
+        # assert len(results) == len(self), (
+        #     f'The length of results is not equal to '
+        #     f'the dataset len: {len(results)} != {len(self)}')
+        # if submission_dir is None:
+        #     submission_dir = "./merge"  # 合并检测结果 
+        #     # submission_dir = tempfile.TemporaryDirectory()
+        # else:
+        #     tmp_dir = None
 
-        else:
-            tmp_dir = None
+        # print('\nMerging patch bboxes into full image!!!')
+        # start_time = time.time()
+        # id_list, dets_list = self.merge_det(results, nproc)
+        # stop_time = time.time()
+        # print(f'Used time: {(stop_time - start_time):.1f} s')
 
-        print('\nMerging patch bboxes into full image!!!')
-        start_time = time.time()
-        id_list, dets_list = self.merge_det(results, nproc)
-        stop_time = time.time()
-        print(f'Used time: {(stop_time - start_time):.1f} s')
+        # result_files = self._results2submission(id_list, dets_list,
+        #                                         submission_dir)
 
-        result_files = self._results2submission(id_list, dets_list,
-                                                submission_dir)
+        # return result_files, submission_dir
 
-        # return result_files, tmp_dir
-        return result_files, submission_dir
-    
+        submission_dir = "./evalTxt"
+        evalTx_path = submission_dir
+        if not osp.exists(evalTx_path):
+            os.makedirs(evalTx_path)
+        with open(os.path.join(evalTx_path, 'Task1_ship.txt'), 'w') as f:
+            # 上面的merge有点问题，不如直接保存evalTxt再另外merge
+            for idx, img_id in enumerate(self.img_ids):
+                result = results[idx]
+                for boxs in result:
+                    for box in boxs:
+                        x = xywhr2xyxyxyxy(box[:-1])
+                        f.write('{} {} {:.2f} {:.2f} {:.2f} {:.2f} {:.2f} {:.2f} {:.2f} {:.2f}\n'.format(
+                            img_id,box[-1],x[0][0],x[0][1],x[1][0],x[1][1],x[2][0],x[2][1],x[3][0],x[3][1]
+                        ))
+            f.close()
 
+def xywhr2xyxyxyxy(x):
+    """
+    Convert batched Oriented Bounding Boxes (OBB) from [xywh, rotation] to [xy1, xy2, xy3, xy4]. Rotation values should
+    be in radians from 0 to pi/2.
+
+    Args:
+        x (numpy.ndarray | torch.Tensor): Boxes in [cx, cy, w, h, rotation] format of shape (n, 5) or (b, n, 5).
+
+    Returns:
+        (numpy.ndarray | torch.Tensor): Converted corner points of shape (n, 4, 2) or (b, n, 4, 2).
+    """
+    cos, sin, cat, stack = (
+        (torch.cos, torch.sin, torch.cat, torch.stack)
+        if isinstance(x, torch.Tensor)
+        else (np.cos, np.sin, np.concatenate, np.stack)
+    )
+
+    ctr = x[..., :2]
+    w, h, angle = (x[..., i : i + 1] for i in range(2, 5))
+    cos_value, sin_value = cos(angle), sin(angle)
+    vec1 = [w / 2 * cos_value, w / 2 * sin_value]
+    vec2 = [-h / 2 * sin_value, h / 2 * cos_value]
+    vec1 = cat(vec1, -1)
+    vec2 = cat(vec2, -1)
+    pt1 = ctr + vec1 + vec2
+    pt2 = ctr + vec1 - vec2
+    pt3 = ctr - vec1 - vec2
+    pt4 = ctr - vec1 + vec2
+    return stack([pt1, pt2, pt3, pt4], -2)
 
 def _merge_func(info, CLASSES, iou_thr):
     """Merging patch bboxes into full image.
